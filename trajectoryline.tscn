@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://drsgqvdxsb8d3"]
+
+[ext_resource type="Script" uid="uid://bev2ln067ahef" path="res://trajectory.gd" id="1_h3xgv"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h3xgv"]
+light_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsrrp"]
+
+[node name="trajectory" type="Line2D" unique_id=1098745501]
+material = SubResource("CanvasItemMaterial_h3xgv")
+points = PackedVector2Array(0, -1, 44, -63, 143, -95, 219, -69, 269, 1)
+width = 4.0
+default_color = Color(0.67058825, 0.67058825, 0.67058825, 0.36078432)
+joint_mode = 2
+antialiased = true
+script = ExtResource("1_h3xgv")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=828808693]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1744300800]
+shape = SubResource("CircleShape2D_xsrrp")
