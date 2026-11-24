@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cr1fa21bokj5b"]
+
+[ext_resource type="Script" uid="uid://b8e7pm8b5wq3" path="res://Lockpickingstuff/moving.gd" id="1_peesp"]
+[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="2_emapu"]
+
+[node name="LockpickPopup" type="Panel" unique_id=1648785883]
+offset_left = -450.0
+offset_top = -275.0
+offset_right = 465.49683
+offset_bottom = 277.8192
+script = ExtResource("1_peesp")
+
+[node name="MovingKey" type="TextureRect" parent="." unique_id=1679744782]
+layout_mode = 0
+offset_top = 254.0
+offset_right = 128.0
+offset_bottom = 382.0
+scale = Vector2(0.08000457, 0.08000457)
+texture = ExtResource("2_emapu")

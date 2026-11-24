@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://df6tj14jy1uk"]
+
+[ext_resource type="PackedScene" uid="uid://cr1fa21bokj5b" path="res://Lockpickingstuff/LockpickPopup.tscn" id="1_a8v20"]
+
+[node name="LockpickingTestplace" type="Node2D" unique_id=991495851]
+
+[node name="LockpickPopup" parent="." unique_id=1648785883 instance=ExtResource("1_a8v20")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1873728619]

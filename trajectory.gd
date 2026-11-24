@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func _refresh():
 	clear_points()
-	linePosition = get_parent().get_node("player").position
+	linePosition = position
 	
 	for i in maxPoints:
 		add_point(linePosition)
