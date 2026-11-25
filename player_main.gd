@@ -44,6 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	# -------------------------------------------------------
 	if event.is_action_released("throw"):
 		throw = false
+		_throw(1, true)
 	if event.is_action_released("right"):
 		right = false
 	if event.is_action_released("left"):
@@ -53,36 +54,59 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("crouch"):
 		crouch = false
 
-func _throw(dt: float) -> void:
-	if throw:
-		shooting = true
-		var throw_pos := get_global_mouse_position()
-		var origin := global_position + Vector2(30, -100)
-				# rotate character according to mouse pos
-		if (throw_pos.x - global_position.x) <= 0:
-			sprite.flip_h = true
-			origin = global_position + Vector2(-30, -100)
+func _throw(dt: float, release: bool) -> void:
+	if not release:
+		if throw:
+			shooting = true
+			var throw_pos := get_global_mouse_position()
+			var origin := global_position + Vector2(30, -20)
+					# rotate character according to mouse pos
+			if (throw_pos.x - global_position.x) <= 0:
+				sprite.flip_h = true
+				origin = global_position + Vector2(-30, -20)
+			else:
+				sprite.flip_h = false
+			
+			throwing_power = lerp(throwing_power, max_throwing_power, dt*throwing_charge_speed)
+			trajectoryline.throw_preview(origin, throw_pos, gravity, max_throwing_time, throwing_power)
+			
+			if sprite.animation != "bow_shot":
+				sprite.play("bow_shot")
 		else:
-			sprite.flip_h = false
-		
-		throwing_power = lerp(throwing_power, max_throwing_power, dt*throwing_charge_speed)
-		trajectoryline.throw(origin, throw_pos, gravity, max_throwing_time, throwing_power)
-		
-		if sprite.animation != "bow_shot":
-			sprite.play("bow_shot")
-	else:
-		trajectoryline._refresh()
-		throwing_power = 0
-		shooting = false
+			trajectoryline._refresh()
+			throwing_power = 0
+			shooting = false
+			
+	else: #releaase: shoot
+		var throw_pos := get_global_mouse_position()
+		var origin := global_position + Vector2(30, -20)
+		if (throw_pos.x - global_position.x) <= 0:
+			origin = global_position + Vector2(-30, -20)
+			
+		trajectoryline.throw(origin, throw_pos, gravity, max_throwing_time, throwing_power, slingshot_damage)
 		
 func _crouch(dt) -> float:
 	if not crouch:
-		$AnimatedSprite2D.modulate = Color.WHITE
+		$AnimatedSprite2D.scale = Vector2(0.04, 0.04)
+		$AnimatedSprite2D.position = Vector2(0, 2)
+		$CollisionShape2D.scale = Vector2(5, 5)
+		$CollisionShape2D.position = Vector2(0, 0)
+		return 1
+	
+	if shooting:
+		crouch = false
 		return 1
 	
 	crouch = true
-	$AnimatedSprite2D.modulate = Color.WHITE.darkened(0.5)
-	if sprite.animation != "crouch" and not shooting and (left or right):
+	$AnimatedSprite2D.scale = Vector2(0.03, 0.03)
+	$AnimatedSprite2D.position = Vector2(0, 12) # terpaksa hardcoded
+	$CollisionShape2D.scale = Vector2(5, 3.4)
+	$CollisionShape2D.position = Vector2(0, 12.5)
+	if sprite.animation != "crouch" or not (left or right):
+		sprite.play("crouch")
+		sprite.stop()
+	
+	if not sprite.is_playing() and not shooting and (left or right):
 		sprite.play("crouch")
 	
 	return 0.5
@@ -98,11 +122,11 @@ func _process(dt: float) -> void:
 		sprite.play("idle")
 	
 	if right:
-		input_direction.x += 1
+		input_direction.x = 1
 		sprite.flip_h = false
 		direction = "right"
 	if left:
-		input_direction.x -= 1
+		input_direction.x = -1
 		sprite.flip_h = true
 		direction = "left"
 	if jump and is_on_floor() and not shooting:
@@ -113,7 +137,7 @@ func _process(dt: float) -> void:
 	
 	#gravity
 	if not is_on_floor():
-		velocity.y += gravity * dt
+		velocity.y += get_gravity().y * dt
 	
 	var multiplier = 1
 	multiplier *= _crouch(dt)
@@ -125,4 +149,13 @@ func _process(dt: float) -> void:
 	speed = velocity
 	
 	#-------------------------
-	_throw(dt)
+	_throw(dt, false)
+	
+	#-----------------------------
+	var enemy = get_tree().get_first_node_in_group("enemies")
+	if enemy:
+		var dist = (enemy.position - position).length()
+		var max_dist = 700
+		var shake_multiplier = 0.002
+		var shake_power = (max_dist - dist) * shake_multiplier if dist < max_dist else 0.0
+		$Camera2D.apply_shake(shake_power)
