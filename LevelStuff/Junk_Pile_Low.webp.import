@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1n7oquanhyl3"
-path="res://.godot/imported/light.png-06e94102f0cce323cff7daad56cf3030.ctex"
+uid="uid://p3gkebcuf0ou"
+path="res://.godot/imported/Junk_Pile_Low.webp-8036c7c36d2192524abd80d57645f802.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://light.png"
-dest_files=["res://.godot/imported/light.png-06e94102f0cce323cff7daad56cf3030.ctex"]
+source_file="res://LevelStuff/Junk_Pile_Low.webp"
+dest_files=["res://.godot/imported/Junk_Pile_Low.webp-8036c7c36d2192524abd80d57645f802.ctex"]
 
 [params]
 

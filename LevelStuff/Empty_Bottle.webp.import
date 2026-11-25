@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdrergerrh2mo"
-path="res://.godot/imported/Pawn_Idle.png-601497f49617d3e35464ab3c78f47457.ctex"
+uid="uid://fgomwbjo5lwd"
+path="res://.godot/imported/Empty_Bottle.webp-2f847ecb00fad56adc164bdaadb96cb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Pawn_Idle.png"
-dest_files=["res://.godot/imported/Pawn_Idle.png-601497f49617d3e35464ab3c78f47457.ctex"]
+source_file="res://LevelStuff/Empty_Bottle.webp"
+dest_files=["res://.godot/imported/Empty_Bottle.webp-2f847ecb00fad56adc164bdaadb96cb2.ctex"]
 
 [params]
 
