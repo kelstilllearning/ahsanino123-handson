@@ -1,124 +1,116 @@
 extends Panel
 
-@onready var movingthing = $MovingKey
+signal zone_hit
+signal lockpick_finished(success: bool)
+
+@onready var movingthing: Control = $MovingKey
 
 # Reaction hit settings
-var currenthitcolor : Color
-var currenthitlength : float
-@export var currenthitamount : int = 1
-var hitamountinc : int = 1
-var currentlevel : int = 1
-@export var successfulhits : int = 0
+var currenthitcolor: Color
+var currenthitlength: float
+@export var currenthitamount: int = 1
+var hitamountinc: int = 1
+var currentlevel: int = 1
+@export var successfulhits: int = 0
 
-var level1c : Color = Color.GREEN
-var level2c : Color = Color.GREEN_YELLOW
-var level3c : Color = Color.SLATE_GRAY
-var level1l : float = 45.0
-var level2l : float = 30.0
-var level3l : float = 15.0
+var level1c: Color = Color.GREEN
+var level2c: Color = Color.GREEN_YELLOW
+var level3c: Color = Color.SLATE_GRAY
+var level1l: float = 45.0
+var level2l: float = 30.0
+var level3l: float = 15.0
 
 # Stores Vector2(start_angle, end_angle) for ALL active hit zones
-@export var hit_zones : Array[Vector2] = []
-@export var aman : bool = false
+@export var hit_zones: Array[Vector2] = []
+@export var aman: bool = false
 
 # Circle settings
-var currentbasecolor : Color = Color.BLACK
-var antialias : bool = true
-var tengahlingkaran : Vector2
-var radius : float = 12.5
+var currentbasecolor: Color = Color.BLACK
+var antialias: bool = true
+var tengahlingkaran: Vector2
+var radius: float = 12.5
 
 # Rotation settings
-var tengahmuter : Vector2
-var fuck : float = 0.0
-var speed : float = 3
-@export var derajatlingkaran : float
+var tengahmuter: Vector2
+var elapsed_time: float = 0.0
+var speed: float = 3.0
+@export var derajatlingkaran: float
 
-var on : bool = false
-
-var IM
-var playerobject
+var on: bool = false
 
 func _ready() -> void:
-	playerobject = get_tree().current_scene.find_child("player")
-	IM = playerobject.find_child("InteractionManager")
+	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	tengahlingkaran = self.get_rect().size * 0.5
 	tengahmuter = movingthing.get_rect().size * 0.5
-	if (!on) :
+	if not on:
 		currenthitcolor = level1c
 		currenthitlength = level1l
 		generate_hit_zones()
 
 func generate_hit_zones() -> void:
 	hit_zones.clear()
-	var arc_rad : float = deg_to_rad(currenthitlength)
-	var min_gap : float = deg_to_rad(10.0) # Minimum spacing between arcs
-	var max_attempts : int = 10 # Prevents infinite loop if zones can't fit
+	var arc_rad: float = deg_to_rad(currenthitlength)
+	var min_gap: float = deg_to_rad(10.0)
+	var max_attempts: int = 10
 	
 	for i in range(currenthitamount):
-		var placed : bool = false
-		var attempts : int = 0
+		var placed: bool = false
+		var attempts: int = 0
 		
 		while not placed and attempts < max_attempts:
 			attempts += 1
-			var start_angle : float = randf_range(-PI, PI - arc_rad)
-			var end_angle : float = start_angle + arc_rad
+			var start_angle: float = randf_range(-PI, PI - arc_rad)
+			var end_angle: float = start_angle + arc_rad
 			
 			if not is_overlapping(start_angle, end_angle, min_gap):
 				hit_zones.append(Vector2(start_angle, end_angle))
 				placed = true
 
-
 func is_overlapping(start_a: float, end_a: float, gap: float) -> bool:
 	for zone in hit_zones:
-		# Check if [start_a, end_a] intersects [zone.x, zone.y] with a buffer gap
 		if start_a < (zone.y + gap) and end_a > (zone.x - gap):
 			return true
 	return false
 
-
 func _draw() -> void:
-	# Draw background circle
 	draw_arc(tengahlingkaran, radius, 0, TAU, 64, currentbasecolor, 200, antialias)
 	
-	# Draw all stored hit zones
 	for zone in hit_zones:
 		draw_arc(tengahlingkaran, radius, zone.x, zone.y, 64, currenthitcolor, 200, antialias)
-	draw_arc(tengahlingkaran, radius-5, 0, TAU, 64, currentbasecolor, 200, antialias)
-
+	draw_arc(tengahlingkaran, radius - 5, 0, TAU, 64, currentbasecolor, 200, antialias)
 
 func _physics_process(delta: float) -> void:
-	fuck += delta
-	var angle : float = fuck * speed
-	movingthing.position = tengahlingkaran + Vector2(cos(angle), sin(angle)) * (9*radius) - tengahmuter
+	elapsed_time += delta
+	var angle: float = elapsed_time * speed
+	movingthing.position = tengahlingkaran + Vector2(cos(angle), sin(angle)) * (9 * radius) - tengahmuter
 	
-	# Wrap angle cleanly into [-PI, PI] to match hit_zones
 	derajatlingkaran = wrapf(angle, -PI, PI)
 	
-	# Check ALL hit zones
 	aman = false
 	for zone in hit_zones:
 		if derajatlingkaran >= zone.x and derajatlingkaran <= zone.y:
 			aman = true
 			break
 
-
 func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("Interact")) :
-		await get_tree().process_frame 
-		IM.restartlock.emit()
-		playerobject.busyness.emit()
-		self.queue_free()
-	if aman and Input.is_action_just_pressed("Lockpick"):
-		successfulhits = successfulhits + 1
-		cycling(hit_zones, derajatlingkaran)
+	if event.is_action_pressed("Interact"):
+		get_viewport().set_input_as_handled()
+		lockpick_finished.emit(false)
+		return
+		
+	if aman and event.is_action_pressed("Lockpick"):
+		get_viewport().set_input_as_handled()
+		zone_hit.emit()
+		successfulhits += 1
+		remove_hit_zone(hit_zones, derajatlingkaran)
 		queue_redraw()
-		if successfulhits != currenthitamount :
+		
+		if successfulhits != currenthitamount:
 			return
-		if currentlevel == 3 :
-			await get_tree().process_frame 
-			IM.locksuccess.emit()
-			playerobject.busyness.emit()
-			self.queue_free()
+			
+		if currentlevel == 3:
+			lockpick_finished.emit(true)
+			return
 			
 		currentlevel += 1
 		currenthitamount += hitamountinc
@@ -134,10 +126,8 @@ func _input(event: InputEvent) -> void:
 		generate_hit_zones()
 		queue_redraw()
 
-func cycling(fucks: Array, deg: float) :
-	for i in range(0, fucks.size()) :
-		if (fucks[i].x <= deg  and deg <= fucks[i].y) :
-			print("WORKING!")
-			fucks.remove_at(i)
+func remove_hit_zone(zones: Array, deg: float) -> void:
+	for i in range(zones.size()):
+		if zones[i].x <= deg and deg <= zones[i].y:
+			zones.remove_at(i)
 			break
-		else : print("NOT WORKING, RETARD!")

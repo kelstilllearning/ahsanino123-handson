@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bojpeolm0qqm" path="res://LevelStuff/Interactables.gd" id="1_uxpoo"]
 [ext_resource type="Texture2D" uid="uid://bsowdul1d8j6n" path="res://LevelStuff/lpc-doors-animated-1.png" id="2_pm7w2"]
+[ext_resource type="AudioStream" uid="uid://d3ovi3cpjpmuu" path="res://Lockpickingstuff/dooropensound.mp3" id="3_epcdc"]
+[ext_resource type="AudioStream" uid="uid://b1m0lwpfqurgx" path="res://LevelStuff/lockpicksuccess.mp3" id="4_epcdc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 91.09336
@@ -96,6 +98,12 @@ position = Vector2(22.5, 0.49999714)
 scale = Vector2(1.3421054, 1.2272727)
 sprite_frames = SubResource("SpriteFrames_xrivr")
 animation = &"Opening"
+
+[node name="Opensound" type="AudioStreamPlayer2D" parent="." unique_id=2104757801]
+stream = ExtResource("3_epcdc")
+
+[node name="Successsound" type="AudioStreamPlayer2D" parent="." unique_id=1027875570]
+stream = ExtResource("4_epcdc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

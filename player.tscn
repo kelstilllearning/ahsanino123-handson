@@ -151,3 +151,5 @@ frame_progress = 0.7734487
 
 [node name="InteractionManager" type="Node2D" parent="." unique_id=21470195]
 script = ExtResource("5_sweqy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="InteractionManager" unique_id=414224513]
