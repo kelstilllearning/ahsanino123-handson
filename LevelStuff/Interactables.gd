@@ -4,11 +4,16 @@ var deltapos : float
 @export var IM : Node
 signal interactshow(hey : int)
 var control
+var animationsprite
+signal successfullock
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	connect("successfullock", opendoor)
+	animationsprite = find_child("AnimatedSprite2D")
 	control = find_child("Control")
 	connect("interactshow", switchinteract)
+	animationsprite.play("Idle_Closed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -32,3 +37,6 @@ func switchinteract(fuck: int) :
 			control.visible = false
 		1 :#nyalain
 			control.visible = true
+			
+func opendoor():
+	animationsprite.play("Opening")

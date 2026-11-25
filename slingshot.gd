@@ -17,11 +17,11 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	mousepos = get_global_mouse_position()
-	Line.set_point_position(0, self.position)
+	Line.set_point_position(0, self.global_position)
 	if(!charging) : 
-		Line.set_point_position(1, mousepos.limit_length(circleradius))
+		Line.set_point_position(1, global_position + (mousepos-global_position).limit_length(circleradius))
 	else :
-		Line.set_point_position(1, (ChargingTimer.wait_time-ChargingTimer.time_left)/(ChargingTimer.wait_time)*mousepos.limit_length(circleradius))
+		Line.set_point_position(1, (global_position + (ChargingTimer.wait_time-ChargingTimer.time_left)/(ChargingTimer.wait_time)*(mousepos-global_position).limit_length(circleradius)))
 
 func _input(event: InputEvent) -> void:
 	if (Input.is_action_just_pressed("shoot")) :

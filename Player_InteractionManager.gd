@@ -4,6 +4,7 @@ const LOCKPICK_TEMPLATE = preload("res://Lockpickingstuff/LockpickPopup.tscn")
 
 signal restartlock
 signal targeting
+signal locksuccess
 
 @export var near_interactables: Array[Node2D] = []
 
@@ -28,6 +29,7 @@ var lockpick_current: Node = null
 		targeted = oncoming
 
 func _ready() -> void:
+	locksuccess.connect(lockpicksuccess)
 	restartlock.connect(delete_lock)
 	targeting.connect(update_target)
 
@@ -68,4 +70,11 @@ func delete_lock() -> void:
 	lockpick_status = false
 	if is_instance_valid(lockpick_current):
 		lockpick_current.queue_free()
+		await get_tree().get_frame()
 		lockpick_current = null
+
+func lockpicksuccess() :
+	targeted.successfullock.emit()
+	targeted.find_child("StaticBody2D").queue_free()
+	targeted.find_child("CollisionShape2D").queue_free()
+	pass

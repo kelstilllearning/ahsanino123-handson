@@ -11,7 +11,7 @@ var currentlevel : int = 1
 @export var successfulhits : int = 0
 
 var level1c : Color = Color.GREEN
-var level2c : Color = Color.DARK_SEA_GREEN
+var level2c : Color = Color.GREEN_YELLOW
 var level3c : Color = Color.SLATE_GRAY
 var level1l : float = 45.0
 var level2l : float = 30.0
@@ -22,15 +22,15 @@ var level3l : float = 15.0
 @export var aman : bool = false
 
 # Circle settings
-var currentbasecolor : Color = Color.DIM_GRAY
+var currentbasecolor : Color = Color.BLACK
 var antialias : bool = true
 var tengahlingkaran : Vector2
-var radius : float = 100.0
+var radius : float = 12.5
 
 # Rotation settings
 var tengahmuter : Vector2
 var fuck : float = 0.0
-var speed : float = 2.0
+var speed : float = 3
 @export var derajatlingkaran : float
 
 var on : bool = false
@@ -83,12 +83,13 @@ func _draw() -> void:
 	# Draw all stored hit zones
 	for zone in hit_zones:
 		draw_arc(tengahlingkaran, radius, zone.x, zone.y, 64, currenthitcolor, 200, antialias)
+	draw_arc(tengahlingkaran, radius-5, 0, TAU, 64, currentbasecolor, 200, antialias)
 
 
 func _physics_process(delta: float) -> void:
 	fuck += delta
 	var angle : float = fuck * speed
-	movingthing.position = tengahlingkaran + Vector2(cos(angle), sin(angle)) * (2.0 * radius) - tengahmuter
+	movingthing.position = tengahlingkaran + Vector2(cos(angle), sin(angle)) * (9*radius) - tengahmuter
 	
 	# Wrap angle cleanly into [-PI, PI] to match hit_zones
 	derajatlingkaran = wrapf(angle, -PI, PI)
@@ -115,7 +116,7 @@ func _input(event: InputEvent) -> void:
 			return
 		if currentlevel == 3 :
 			await get_tree().process_frame 
-			IM.restartlock.emit()
+			IM.locksuccess.emit()
 			playerobject.busyness.emit()
 			self.queue_free()
 			

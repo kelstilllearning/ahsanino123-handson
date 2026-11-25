@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b7l5b3dl7n754"]
 
-[ext_resource type="Script" uid="uid://ouy33xn4eb1t" path="res://slingshot.gd" id="1_crxic"]
+[ext_resource type="PackedScene" uid="uid://bfy7paae26uu3" path="res://slingshot.tscn" id="1_g17af"]
 [ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="1_n32ng"]
 [ext_resource type="Script" uid="uid://b2tv71mrc8xn7" path="res://Lockpickingstuff/hit_prop.gd" id="3_g17af"]
 
@@ -9,23 +9,7 @@ radius = 64.74484
 
 [node name="SlingshotTestplace" type="Node2D" unique_id=8203928]
 
-[node name="Slingshot" type="Node2D" parent="." unique_id=2012087014 groups=["Player"]]
-script = ExtResource("1_crxic")
-
-[node name="Sprite2D" type="Sprite2D" parent="Slingshot" unique_id=914396561]
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("1_n32ng")
-
-[node name="Line2D" type="Line2D" parent="Slingshot" unique_id=1611689083]
-top_level = true
-points = PackedVector2Array(0, 0, 0, 0)
-closed = true
-
-[node name="RayCast2D" type="RayCast2D" parent="Slingshot" unique_id=585248451]
-
-[node name="ChargingTimer" type="Timer" parent="Slingshot" unique_id=1910218727]
-wait_time = 1.5
-one_shot = true
+[node name="Slingshot" parent="." unique_id=772629495 instance=ExtResource("1_g17af")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=302056898]
 

@@ -1,109 +1,27 @@
 [gd_scene format=3 uid="uid://bmjb60xfjod8f"]
 
 [ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="1_w3snd"]
-[ext_resource type="Script" uid="uid://bojpeolm0qqm" path="res://Interactables.gd" id="2_74kyy"]
-[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="2_pi5jr"]
+[ext_resource type="PackedScene" uid="uid://bfy7paae26uu3" path="res://slingshot.tscn" id="2_kx2s4"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="3_8ws1j"]
+[ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="5_b5yu0"]
+[ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="7_vfacy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
-radius = 91.09336
 
 [node name="Testlevel" type="Node2D" unique_id=1657881564]
 
 [node name="player" parent="." unique_id=231474794 instance=ExtResource("1_w3snd")]
+
+[node name="Slingshot" parent="player" unique_id=772629495 instance=ExtResource("2_kx2s4")]
+position = Vector2(1, 0)
 
 [node name="Environment" type="StaticBody2D" parent="." unique_id=715559983]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment" unique_id=970010277]
 shape = SubResource("WorldBoundaryShape2D_xrivr")
 
-[node name="Interactable" type="Area2D" parent="." unique_id=1698697570 groups=["Interactables"]]
-position = Vector2(124, -109)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("2_74kyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=980221915]
-shape = SubResource("CircleShape2D_xrivr")
-debug_color = Color(0.9821835, 0, 0.36863893, 0.41960785)
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable" unique_id=1248055346]
-scale = Vector2(0.16000122, 0.16000122)
-texture = ExtResource("2_pi5jr")
-
-[node name="Control" type="Control" parent="Interactable" unique_id=847070881]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Interactable/Control" unique_id=926679831]
-layout_mode = 0
-offset_left = 12.0
-offset_top = -35.0
-offset_right = 52.0
-offset_bottom = -12.0
-text = "F"
-
-[node name="Interactable3" type="Area2D" parent="." unique_id=474045667 groups=["Interactables"]]
-position = Vector2(208, -64)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("2_74kyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable3" unique_id=619953572]
-shape = SubResource("CircleShape2D_xrivr")
-debug_color = Color(0.9821835, 0, 0.36863893, 0.41960785)
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable3" unique_id=2110672993]
-scale = Vector2(0.16000122, 0.16000122)
-texture = ExtResource("2_pi5jr")
-
-[node name="Control" type="Control" parent="Interactable3" unique_id=1313181314]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Interactable3/Control" unique_id=207061365]
-layout_mode = 0
-offset_left = 12.0
-offset_top = -35.0
-offset_right = 52.0
-offset_bottom = -12.0
-text = "F"
-
-[node name="Interactable2" type="Area2D" parent="." unique_id=435369038 groups=["Interactables"]]
-position = Vector2(296, -112)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("2_74kyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable2" unique_id=1818688648]
-shape = SubResource("CircleShape2D_xrivr")
-debug_color = Color(0.9821835, 0, 0.36863893, 0.41960785)
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable2" unique_id=1361046877]
-scale = Vector2(0.16000122, 0.16000122)
-texture = ExtResource("2_pi5jr")
-
-[node name="Control" type="Control" parent="Interactable2" unique_id=233312758]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Interactable2/Control" unique_id=1749143147]
-layout_mode = 0
-offset_left = 12.0
-offset_top = -35.0
-offset_right = 52.0
-offset_bottom = -12.0
-text = "F"
+[node name="Door" parent="." unique_id=1795832014 instance=ExtResource("3_8ws1j")]
+position = Vector2(408, -40)
 
 [node name="Control" type="Control" parent="." unique_id=1850529694]
 layout_mode = 3
@@ -117,11 +35,11 @@ offset_bottom = 324.0
 offset = Vector2(576, 324)
 transform = Transform2D(1, 0, 0, 1, 576, 324)
 
-[connection signal="body_entered" from="Interactable" to="Interactable" method="_on_body_entered"]
-[connection signal="body_exited" from="Interactable" to="Interactable" method="_on_body_exited"]
-[connection signal="body_entered" from="Interactable3" to="Interactable3" method="_on_body_entered"]
-[connection signal="body_exited" from="Interactable3" to="Interactable3" method="_on_body_exited"]
-[connection signal="body_entered" from="Interactable2" to="Interactable2" method="_on_body_entered"]
-[connection signal="body_exited" from="Interactable2" to="Interactable2" method="_on_body_exited"]
+[node name="Blockade" parent="." unique_id=774514752 instance=ExtResource("5_b5yu0")]
+position = Vector2(-144, -64)
+
+[node name="Bottle" parent="." unique_id=1809200111 instance=ExtResource("7_vfacy")]
+position = Vector2(-56, -24)
 
 [editable path="player"]
+[editable path="player/Slingshot"]
