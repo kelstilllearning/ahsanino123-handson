@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c3sovdajbhlej"]
+
+[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="1_a85iw"]
+[ext_resource type="Script" uid="uid://dpl1pdcpn1j0y" path="res://trail_maker.gd" id="2_qxf0c"]
+
+[node name="projectile" type="Node2D" unique_id=924267359 groups=["Projectile"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=785766348]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_a85iw")
+
+[node name="trail" type="Line2D" parent="." unique_id=1979106889]
+width = 4.0
+default_color = Color(1, 1, 1, 0.49411765)
+script = ExtResource("2_qxf0c")

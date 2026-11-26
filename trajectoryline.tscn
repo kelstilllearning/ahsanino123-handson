@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://drsgqvdxsb8d3"]
 
 [ext_resource type="Script" uid="uid://bev2ln067ahef" path="res://trajectory.gd" id="1_h3xgv"]
+[ext_resource type="Script" uid="uid://dhcpmk82nbxyl" path="res://camera_handler.gd" id="2_q4lkf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h3xgv"]
 light_mode = 1
@@ -21,3 +22,10 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1744300800]
 shape = SubResource("CircleShape2D_xsrrp")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1786184788]
+offset = Vector2(0, -30)
+zoom = Vector2(1.2, 1.2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("2_q4lkf")

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b8e151pjqj3oi"]
+
+[ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="1_ygqrc"]
+[ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="2_7uaqn"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="3_ob1ba"]
+
+[node name="Node2D" type="Node2D" unique_id=699606114]
+
+[node name="Blockade" parent="." unique_id=774514752 instance=ExtResource("1_ygqrc")]
+position = Vector2(-64, -64)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Bottle" parent="." unique_id=1809200111 instance=ExtResource("2_7uaqn")]
+position = Vector2(16, -24)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Door" parent="." unique_id=1795832014 instance=ExtResource("3_ob1ba")]
+position = Vector2(194, -40)

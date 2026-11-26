@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bmjb60xfjod8f"]
+
+[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="1_w3snd"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="3_8ws1j"]
+[ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="5_b5yu0"]
+[ext_resource type="PackedScene" uid="uid://bxv0nkhmethla" path="res://LevelStuff/hallway_transition.tscn" id="5_jbk63"]
+[ext_resource type="PackedScene" uid="uid://3phdxp3jwivn" path="res://LevelStuff/ritual_circle.tscn" id="6_8ws1j"]
+[ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="7_vfacy"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
+
+[node name="Testlevel" type="Node2D" unique_id=1657881564]
+
+[node name="player" parent="." unique_id=231474794 instance=ExtResource("1_w3snd")]
+
+[node name="Environment" type="StaticBody2D" parent="." unique_id=715559983]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment" unique_id=970010277]
+shape = SubResource("WorldBoundaryShape2D_xrivr")
+
+[node name="Door" parent="." unique_id=1795832014 instance=ExtResource("3_8ws1j")]
+position = Vector2(408, -40)
+
+[node name="Blockade" parent="." unique_id=774514752 instance=ExtResource("5_b5yu0")]
+position = Vector2(-144, -64)
+
+[node name="Bottle" parent="." unique_id=1809200111 instance=ExtResource("7_vfacy")]
+position = Vector2(-56, -24)
+
+[node name="HallwayTransition" parent="." unique_id=204383538 instance=ExtResource("5_jbk63")]
+position = Vector2(208, -56)
+
+[node name="RitualCircle" parent="." unique_id=1498584817 instance=ExtResource("6_8ws1j")]
+position = Vector2(744, -64)
+
+[editable path="player"]

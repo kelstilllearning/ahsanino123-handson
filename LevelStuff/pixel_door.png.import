@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdrergerrh2mo"
-path="res://.godot/imported/Pawn_Idle.png-601497f49617d3e35464ab3c78f47457.ctex"
+uid="uid://biq1bfb8lu3rr"
+path="res://.godot/imported/pixel_door.png-a47700011d1c37c89e90fd1ca4f88629.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Pawn_Idle.png"
-dest_files=["res://.godot/imported/Pawn_Idle.png-601497f49617d3e35464ab3c78f47457.ctex"]
+source_file="res://LevelStuff/pixel_door.png"
+dest_files=["res://.godot/imported/pixel_door.png-a47700011d1c37c89e90fd1ca4f88629.ctex"]
 
 [params]
 

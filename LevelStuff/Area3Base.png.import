@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qomcl1dotiuk"
-path="res://.godot/imported/Pawn_Run.png-fb825b141a3ac0c27d2d13ac72e75204.ctex"
+uid="uid://bjh4dymqicdf6"
+path="res://.godot/imported/Area3Base.png-5c1e841b607a8d94b75236a87cad2c46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Pawn_Run.png"
-dest_files=["res://.godot/imported/Pawn_Run.png-fb825b141a3ac0c27d2d13ac72e75204.ctex"]
+source_file="res://LevelStuff/Area3Base.png"
+dest_files=["res://.godot/imported/Area3Base.png-5c1e841b607a8d94b75236a87cad2c46.ctex"]
 
 [params]
 

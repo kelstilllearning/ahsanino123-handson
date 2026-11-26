@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d26drgsmtm5da"]
+
+[ext_resource type="Script" uid="uid://bd8r5pnrhhqdl" path="res://LevelStuff/Bottle.gd" id="1_bpi1m"]
+[ext_resource type="Texture2D" uid="uid://fgomwbjo5lwd" path="res://LevelStuff/Empty_Bottle.webp" id="2_bpi1m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(16, 48)
+
+[node name="Bottle" type="StaticBody2D" unique_id=1112767523]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_bpi1m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1001372785]
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=608769903]
+rotation = -0.7853982
+scale = Vector2(0.68826926, 0.68826926)
+texture = ExtResource("2_bpi1m")

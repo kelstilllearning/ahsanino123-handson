@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://7ngkchjw34e4"]
+
+[ext_resource type="Script" uid="uid://dbyflfxqj6864" path="res://LevelStuff/Blockade.gd" id="1_tw277"]
+[ext_resource type="Texture2D" uid="uid://p3gkebcuf0ou" path="res://LevelStuff/Junk_Pile_Low.webp" id="2_m3ivv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1lj4"]
+size = Vector2(88, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3ivv"]
+size = Vector2(88, 164)
+
+[node name="Blockade" type="StaticBody2D" unique_id=774514752]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_tw277")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1307825358]
+position = Vector2(-5, 33.5)
+shape = SubResource("RectangleShape2D_b1lj4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1106729683]
+position = Vector2(7.6293945e-06, -8.000008)
+scale = Vector2(0.27999997, 0.27999997)
+texture = ExtResource("2_m3ivv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1722693037]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=262622724]
+position = Vector2(-5, -18)
+shape = SubResource("RectangleShape2D_m3ivv")
