@@ -6,8 +6,6 @@ var left := false
 var jump := false
 var direction := "right"
 var throwing_power := 0
-var busy := false
-signal busyness
 
 @onready var camera: Camera2D = $Camera2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -20,10 +18,9 @@ func zoom(multiplier: int) -> void:
 #############################
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	connect("busyness", busytoggle)
 	var lineScene = preload("res://trajectoryline.tscn")
 	trajectoryline = lineScene.instantiate()
-	get_tree().root.add_child.call_deferred(trajectoryline)
+	get_tree().current_scene.add_child.call_deferred(trajectoryline)
 	
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -33,7 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		right = true
 	if event.is_action_pressed("left"):
 		left = true
-	if event.is_action_pressed("jump") and !busy:
+	if event.is_action_pressed("jump"):
 		jump = true
 	if event.is_action_pressed("zoom_in"):
 		zoom(1)
@@ -77,11 +74,6 @@ func _process(dt: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * dt
 	
-	if (busy):
-		input_direction.x = 0
-		velocity.x = 0
-		speed.x = 0
-		return
 	velocity.x = lerp(speed.x, input_direction.x * acceleration, dt*7)
 	move_and_slide()
 	
@@ -90,13 +82,10 @@ func _process(dt: float) -> void:
 	#-------------------------
 	if throw:
 		var throw_pos := get_global_mouse_position()
-		var origin := global_position
+		var origin := global_position + Vector2(0, -90)
 		throwing_power = lerp(throwing_power, max_throwing_power, dt*throwing_charge_speed)
 		trajectoryline.throw(origin, throw_pos, gravity, max_throwing_time, throwing_power)
 	else:
 		trajectoryline._refresh()
 		throwing_power = 0
 	pass
-	
-func busytoggle() :
-	busy = not busy
