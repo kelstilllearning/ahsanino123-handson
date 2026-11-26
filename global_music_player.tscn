@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c0v65n07dt48x"]
+
+[ext_resource type="AudioStream" uid="uid://dho8ttb7kdrbs" path="res://AudioTesting/The British Grenadiers Dangdut Ver..ogg" id="1_7sb7b"]
+[ext_resource type="Script" uid="uid://c4uqk6nt1mo0y" path="res://global_music_player.gd" id="2_k7775"]
+
+[node name="global_music_player" type="AudioStreamPlayer" unique_id=801850725]
+stream = ExtResource("1_7sb7b")
+script = ExtResource("2_k7775")

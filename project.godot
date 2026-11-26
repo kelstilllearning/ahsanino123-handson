@@ -1,19 +1,15 @@
-; Engine configuration file.
-; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not all obvious.
-;
-; Format:
-;   [section] ; section goes between []
-;   param=value ; assign values to parameters
-
 config_version=5
 
 [application]
 
-config/name="ahsannino_test123icle_24"
-run/main_scene="res://world.tscn"
+config/name="Geral_ahsannino_test123icle_24"
+run/main_scene="res://MainMenuReal.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+global_music_player="*uid://c0v65n07dt48x"
 
 [display]
 

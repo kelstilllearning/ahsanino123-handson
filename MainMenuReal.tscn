@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://b0b22tyh2j7wk"]
+
+[ext_resource type="Theme" uid="uid://0ll1c7xqx2q5" path="res://resources/menu_theme.tres" id="1_op7px"]
+[ext_resource type="PackedScene" uid="uid://3vyaj0lnrgu7" path="res://User_interface/buttons/play_button.tscn" id="2_3btbe"]
+[ext_resource type="Script" uid="uid://6i7ggoour11g" path="res://User_interface/buttons/play_button.gd" id="3_557n1"]
+[ext_resource type="Script" uid="uid://0l8qnafji1fy" path="res://User_interface/buttons/option_button.gd" id="4_mn86q"]
+
+[node name="MainMenuReal" type="Control" unique_id=102542929]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_op7px")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1290799265]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=789057661]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Title" type="RichTextLabel" parent="PanelContainer/VBoxContainer" unique_id=1597497214]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"RichTextLabelTitle"
+bbcode_enabled = true
+text = "[shake] PLACEHOLDER"
+fit_content = true
+autowrap_mode = 0
+
+[node name="PlayButton" parent="PanelContainer/VBoxContainer" unique_id=786491885 instance=ExtResource("2_3btbe")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("3_557n1")
+
+[node name="OptionButton" parent="PanelContainer/VBoxContainer" unique_id=82587287 instance=ExtResource("2_3btbe")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Option"
+script = ExtResource("4_mn86q")
+
+[node name="Credit ig" parent="PanelContainer/VBoxContainer" unique_id=1829357192 instance=ExtResource("2_3btbe")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Credit?"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/PlayButton" to="PanelContainer/VBoxContainer/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/OptionButton" to="PanelContainer/VBoxContainer/OptionButton" method="_on_pressed"]

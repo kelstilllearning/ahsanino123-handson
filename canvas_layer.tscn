@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dm4osd651v766"]
+
+[ext_resource type="PackedScene" uid="uid://3vyaj0lnrgu7" path="res://User_interface/buttons/play_button.tscn" id="1_mx0kw"]
+[ext_resource type="Script" uid="uid://scu5ee3wdcy0" path="res://PauseMenu.gd" id="1_w4oxd"]
+[ext_resource type="Theme" uid="uid://0ll1c7xqx2q5" path="res://resources/menu_theme.tres" id="2_w4oxd"]
+[ext_resource type="Script" uid="uid://xo8ysj58nwjb" path="res://User_interface/buttons/Resume_button.gd" id="3_fsbdh"]
+[ext_resource type="Script" uid="uid://cgxm8cggx8tgm" path="res://User_interface/buttons/OptionButton.gd" id="4_n6wdb"]
+[ext_resource type="Script" uid="uid://buslk8q8wi5fi" path="res://User_interface/buttons/MainMenu_Button.gd" id="5_g3huw"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=2006161222]
+process_mode = 3
+script = ExtResource("1_w4oxd")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=21526398]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -585.0
+offset_top = -650.0
+offset_right = -585.0
+offset_bottom = -650.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.21518216, 0.21518219, 0.21518219, 0.85882354)
+
+[node name="ResumeButton" parent="." unique_id=786491885 instance=ExtResource("1_mx0kw")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -736.0
+offset_top = -816.0
+offset_right = -436.0
+offset_bottom = -716.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_w4oxd")
+text = "Resume"
+script = ExtResource("3_fsbdh")
+
+[node name="OptionButton" parent="." unique_id=2015600825 instance=ExtResource("1_mx0kw")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -735.0
+offset_top = -700.0
+offset_right = -435.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_w4oxd")
+text = "Option"
+script = ExtResource("4_n6wdb")
+
+[node name="MainMenuButton" parent="." unique_id=1154367864 instance=ExtResource("1_mx0kw")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -735.0
+offset_top = -580.0
+offset_right = -435.0
+offset_bottom = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_w4oxd")
+text = "Main Menu"
+script = ExtResource("5_g3huw")
+
+[connection signal="pressed" from="ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="ResumeButton" to="ResumeButton" method="_on_pressed"]
+[connection signal="pressed" from="OptionButton" to="OptionButton" method="_on_pressed"]
+[connection signal="pressed" from="MainMenuButton" to="MainMenuButton" method="_on_pressed"]

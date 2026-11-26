@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://fqly1m4es7hx"]
+
+[ext_resource type="PackedScene" uid="uid://3vyaj0lnrgu7" path="res://User_interface/buttons/play_button.tscn" id="1_olte5"]
+[ext_resource type="Theme" uid="uid://0ll1c7xqx2q5" path="res://resources/menu_theme.tres" id="2_10eo7"]
+[ext_resource type="Script" uid="uid://buslk8q8wi5fi" path="res://User_interface/buttons/MainMenu_Button.gd" id="3_6vlsc"]
+[ext_resource type="Script" uid="uid://oktcmerhaacf" path="res://resources/VolumeSlider.gd" id="4_10eo7"]
+
+[node name="Control" type="Control" unique_id=1777321121]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=544132475]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuButton" parent="." unique_id=786491885 instance=ExtResource("1_olte5")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_right = 300.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_10eo7")
+text = "Main Menu"
+script = ExtResource("3_6vlsc")
+
+[node name="HSlider" type="HSlider" parent="." unique_id=287287444]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.5
+offset_top = -8.0
+offset_right = 290.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.0
+script = ExtResource("4_10eo7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HSlider" unique_id=907636106]
+autoplay = true
+
+[node name="Title" type="RichTextLabel" parent="." unique_id=795257879]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -59.75
+offset_right = 83.0
+offset_bottom = -8.25
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_10eo7")
+theme_type_variation = &"RichTextLabelTitle"
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "Volume"
+fit_content = true
+autowrap_mode = 0
+
+[connection signal="pressed" from="MainMenuButton" to="MainMenuButton" method="_on_pressed"]
+[connection signal="toggled" from="MainMenuButton" to="MainMenuButton" method="_on_toggled"]
+[connection signal="value_changed" from="HSlider" to="HSlider" method="_on_value_changed"]
