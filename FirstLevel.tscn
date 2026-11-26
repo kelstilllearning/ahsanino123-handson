@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://mbjvqqn4bagr"]
+
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="1_a6k5m"]
+[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="2_0r6i7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(1752, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(16, 322)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1lj4"]
+
+[node name="Node2D" type="Node2D" unique_id=1969980107]
+
+[node name="Hallway" type="Node2D" parent="." unique_id=1276958951]
+
+[node name="Floor" type="StaticBody2D" parent="Hallway" unique_id=751503482]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Floor" unique_id=1776430226]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Wall_Left" type="StaticBody2D" parent="Hallway" unique_id=2106821512]
+position = Vector2(-384, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Wall_Left" unique_id=7566726]
+position = Vector2(-488, -151)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="Wall_Right" type="StaticBody2D" parent="Hallway" unique_id=1684460138]
+position = Vector2(1360, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Wall_Right" unique_id=1018361153]
+shape = SubResource("RectangleShape2D_b1lj4")
+
+[node name="Roof" type="StaticBody2D" parent="Hallway" unique_id=1042644271]
+position = Vector2(0, -304)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Roof" unique_id=1611975224]
+
+[node name="Door" parent="Hallway" unique_id=1795832014 instance=ExtResource("1_a6k5m")]
+position = Vector2(-456, -49)
+
+[node name="player" parent="." unique_id=1823296694 instance=ExtResource("2_0r6i7")]
+position = Vector2(-696, -160)

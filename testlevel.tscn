@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bmjb60xfjod8f"]
 
 [ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="1_w3snd"]
-[ext_resource type="PackedScene" uid="uid://bfy7paae26uu3" path="res://slingshot.tscn" id="2_kx2s4"]
 [ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="3_8ws1j"]
 [ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="5_b5yu0"]
 [ext_resource type="Texture2D" uid="uid://biq1bfb8lu3rr" path="res://LevelStuff/pixel_door.png" id="6_8ws1j"]
@@ -22,9 +21,6 @@ radius = 80.399
 [node name="Testlevel" type="Node2D" unique_id=1657881564]
 
 [node name="player" parent="." unique_id=231474794 instance=ExtResource("1_w3snd")]
-
-[node name="Slingshot" parent="player" unique_id=772629495 instance=ExtResource("2_kx2s4")]
-position = Vector2(1, 0)
 
 [node name="Environment" type="StaticBody2D" parent="." unique_id=715559983]
 
@@ -189,4 +185,3 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [editable path="player"]
-[editable path="player/Slingshot"]

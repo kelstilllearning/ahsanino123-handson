@@ -166,3 +166,6 @@ func _process(dt: float) -> void:
 		var shake_multiplier = 0.002
 		var shake_power = (max_dist - dist) * shake_multiplier if dist < max_dist else 0.0
 		$Camera2D.apply_shake(shake_power)
+		
+func busytoggle():
+	busy = not busy

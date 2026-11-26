@@ -190,5 +190,4 @@ func add_lit_candle() -> void:
 
 func _on_game_ended() -> void:
 	game_ended.emit()
-	print("I HATE NIGGERS")
 	pass

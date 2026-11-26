@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6i03sc7qwotv"]
 
-[ext_resource type="Texture2D" uid="uid://cb08mgf6ew406" path="res://Levels/Area1Base.png" id="1_ovnwc"]
+[ext_resource type="Texture2D" uid="uid://cb08mgf6ew406" path="res://Levels/mainlevelresources/Area1Base.png" id="1_ovnwc"]
 [ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="2_dncm7"]
 [ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="2_j5hpt"]
 

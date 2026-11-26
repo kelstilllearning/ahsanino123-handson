@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b42wv4nr6rjyw" path="res://sprite/Crouching.png" id="5_dw050"]
 [ext_resource type="Texture2D" uid="uid://b7cifrecv5pcn" path="res://sprite/Jumping.png" id="6_b26j0"]
 [ext_resource type="Texture2D" uid="uid://e0smedhvncxy" path="res://sprite/Walking.png" id="7_n7ghd"]
+[ext_resource type="Script" uid="uid://mte2k000uwjv" path="res://Player_InteractionManager.gd" id="8_dw050"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5328"]
 size = Vector2(10, 15)
@@ -165,6 +166,8 @@ texture_scale = 0.2
 position = Vector2(0, 2)
 scale = Vector2(0.04, 0.04)
 sprite_frames = SubResource("SpriteFrames_h5328")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
-frame_progress = 0.22874206
+
+[node name="InteractionManager" type="Node2D" parent="." unique_id=710365706]
+script = ExtResource("8_dw050")
