@@ -8,8 +8,8 @@
 radius = 80.399
 
 [node name="RitualCircle" type="Area2D" unique_id=1498584817]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 15
+collision_mask = 31
 script = ExtResource("1_8q82c")
 minigame_scene = ExtResource("2_6sxkf")
 

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://rt3p6danmrw7"]
 
+[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="4_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="4_dwbse"]
 [ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="5_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="6_gbfbk"]
@@ -63,3 +64,5 @@ position = Vector2(261, -24)
 
 [node name="Door" parent="props2" unique_id=1795832014 instance=ExtResource("6_gbfbk")]
 position = Vector2(561, -40)
+
+[node name="player" parent="." unique_id=1823296694 instance=ExtResource("4_aqk2v")]

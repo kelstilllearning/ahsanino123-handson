@@ -1,50 +1,49 @@
-[gd_scene format=3 uid="uid://mbjvqqn4bagr"]
+[gd_scene format=4 uid="uid://mbjvqqn4bagr"]
 
-[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="1_a6k5m"]
-[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="2_0r6i7"]
+[ext_resource type="Texture2D" uid="uid://ses58jog7aej" path="res://Levels/mainlevelresources/elements1.png" id="1_a6k5m"]
+[ext_resource type="Texture2D" uid="uid://d2ptehnxmmcjj" path="res://Levels/mainlevelresources/elements3.png" id="2_0r6i7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(1752, 20)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0r6i7"]
+texture = ExtResource("1_a6k5m")
+margins = Vector2i(69, 1)
+separation = Vector2i(5, 4)
+texture_region_size = Vector2i(64, 64)
+19:7/0 = 0
+19:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+19:8/0 = 0
+19:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+20:8/0 = 0
+20:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+21:8/0 = 0
+21:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+21:7/0 = 0
+21:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+20:7/0 = 0
+20:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+19:6/0 = 0
+19:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+20:6/0 = 0
+20:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+21:6/0 = 0
+21:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+22:6/0 = 0
+23:6/0 = 0
+23:7/0 = 0
+22:7/0 = 0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
-size = Vector2(16, 322)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbkfm"]
+texture = ExtResource("2_0r6i7")
+texture_region_size = Vector2i(64, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1lj4"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r6i7"]
-size = Vector2(1760, 20)
+[sub_resource type="TileSet" id="TileSet_txs3o"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 15
+physics_layer_0/collision_mask = 31
+sources/1 = SubResource("TileSetAtlasSource_0r6i7")
+sources/2 = SubResource("TileSetAtlasSource_bbkfm")
 
 [node name="Node2D" type="Node2D" unique_id=1969980107]
 
-[node name="Hallway" type="Node2D" parent="." unique_id=1276958951]
-
-[node name="Floor" type="StaticBody2D" parent="Hallway" unique_id=751503482]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Floor" unique_id=1776430226]
-position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_xrivr")
-
-[node name="Wall_Left" type="StaticBody2D" parent="Hallway" unique_id=2106821512]
-position = Vector2(-384, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Wall_Left" unique_id=7566726]
-position = Vector2(-488, -151)
-shape = SubResource("RectangleShape2D_13qdw")
-
-[node name="Wall_Right" type="StaticBody2D" parent="Hallway" unique_id=1684460138]
-position = Vector2(1360, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Wall_Right" unique_id=1018361153]
-shape = SubResource("RectangleShape2D_b1lj4")
-
-[node name="Roof" type="StaticBody2D" parent="Hallway" unique_id=1042644271]
-position = Vector2(0, -304)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Roof" unique_id=1611975224]
-shape = SubResource("RectangleShape2D_0r6i7")
-
-[node name="Door" parent="Hallway" unique_id=1795832014 instance=ExtResource("1_a6k5m")]
-position = Vector2(-456, -49)
-
-[node name="player" parent="." unique_id=1823296694 instance=ExtResource("2_0r6i7")]
-position = Vector2(-696, -160)
+[node name="Ground" type="TileMapLayer" parent="." unique_id=1632088231]
+tile_map_data = PackedByteArray("AAD4/wEAAQAUAAYAAAD5/wEAAQAUAAYAAAD6/wEAAQAUAAYAAAD7/wEAAQAUAAYAAAD8/wEAAQAUAAYAAAD9/wEAAQAUAAYAAAD+/wEAAQAUAAYAAAD//wEAAQAUAAYAAAAAAAEAAQAUAAYAAAABAAEAAQAUAAYAAAACAAEAAQAUAAYAAAADAAEAAQAUAAYAAAAEAAEAAQAUAAYAAAAFAAEAAQAUAAYAAAAGAAEAAQAUAAYAAAAHAAEAAQAUAAYAAAAIAAEAAQAUAAYAAAALAAEAAQAUAAYAAAAMAAEAAQAUAAYAAAD3/wEAAQAUAAYAAAD2/wEAAQAUAAYAAAD1/wEAAQAUAAYAAAD0/wEAAQAUAAYAAAAJAAEAAQAUAAYAAAAKAAEAAQAUAAYAAAA=")
+tile_set = SubResource("TileSet_txs3o")

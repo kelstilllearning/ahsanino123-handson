@@ -7,11 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://iww0cb48nbeg" path="res://Levels/mainlevelresources/Area2.png" id="6_pm182"]
 [ext_resource type="PackedScene" uid="uid://bxv0nkhmethla" path="res://LevelStuff/hallway_transition.tscn" id="6_vo7st"]
 [ext_resource type="Texture2D" uid="uid://bjh4dymqicdf6" path="res://LevelStuff/Area3Base.png" id="7_7ugy3"]
+[ext_resource type="Texture2D" uid="uid://d2ptehnxmmcjj" path="res://Levels/mainlevelresources/elements3.png" id="8_7ugy3"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ugy3"]
 size = Vector2(1989.4736, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(42.105255, 494.73657)
 
 [node name="MainLevel" type="Node2D" unique_id=831240484]
 
@@ -61,22 +65,18 @@ position = Vector2(2072, -56)
 target_teleporter = NodePath("../../StaticBody2D2/HallwayTransition")
 
 [node name="Door" parent="Level" unique_id=1795832014 instance=ExtResource("2_j5hpt")]
-position = Vector2(784, -72)
+position = Vector2(944, -64)
 scale = Vector2(1.52, 1.52)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1472868269]
 position = Vector2(0, -3912)
 scale = Vector2(1.52, 1.52)
 
-[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D2" unique_id=757174663]
+[node name="BlackBackground" type="Sprite2D" parent="StaticBody2D2" unique_id=757174663]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(631.579, 689.4739)
 scale = Vector2(25.920002, 14.92)
 texture = ExtResource("4_ok4l4")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1119684858]
-position = Vector2(594.7368, 1026.0526)
-shape = SubResource("RectangleShape2D_7ugy3")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=445968955]
 position = Vector2(678.9474, 1552.6316)
@@ -86,6 +86,85 @@ texture = ExtResource("7_7ugy3")
 position = Vector2(-263.1579, 984.2105)
 scale = Vector2(0.65789473, 0.65789473)
 target_teleporter = NodePath("../../Level/HallwayTransition")
+
+[node name="LeftWall" type="Sprite2D" parent="StaticBody2D2" unique_id=1135720206]
+position = Vector2(-419.9575, 805.85724)
+scale = Vector2(1.1934475, 1.1934475)
+texture = ExtResource("8_7ugy3")
+region_enabled = true
+region_rect = Rect2(504.99106, 40.976425, 33.00894, 443.02356)
+
+[node name="RightWall" type="Sprite2D" parent="StaticBody2D2" unique_id=1906436230]
+position = Vector2(1594.7368, 805.26324)
+scale = Vector2(1.1934475, 1.1934475)
+texture = ExtResource("8_7ugy3")
+region_enabled = true
+region_rect = Rect2(504.99106, 40.976425, 33.00894, 443.02356)
+
+[node name="FloorCollider" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1119684858]
+position = Vector2(594.7368, 1026.0527)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="RoofCollider" type="CollisionShape2D" parent="StaticBody2D2" unique_id=824806465]
+position = Vector2(594.7368, 557.8948)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="LeftWallCollider" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1342869927]
+position = Vector2(-421.05258, 784.2095)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="RightWallCollider" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1713052988]
+position = Vector2(1600, 784.2095)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=416648670]
+position = Vector2(0, -6840)
+scale = Vector2(1.52, 1.52)
+
+[node name="BlackBackground" type="Sprite2D" parent="StaticBody2D3" unique_id=1008841121]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(631.579, 689.4739)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("4_ok4l4")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3" unique_id=1074256115]
+position = Vector2(678.9474, 1552.6316)
+texture = ExtResource("7_7ugy3")
+
+[node name="HallwayTransition" parent="StaticBody2D3" unique_id=1192735505 node_paths=PackedStringArray("target_teleporter") instance=ExtResource("6_vo7st")]
+position = Vector2(-263.1579, 984.2105)
+scale = Vector2(0.65789473, 0.65789473)
+target_teleporter = NodePath("../../Level/HallwayTransition")
+
+[node name="LeftWall" type="Sprite2D" parent="StaticBody2D3" unique_id=766043923]
+position = Vector2(-419.9575, 805.85724)
+scale = Vector2(1.1934475, 1.1934475)
+texture = ExtResource("8_7ugy3")
+region_enabled = true
+region_rect = Rect2(504.99106, 40.976425, 33.00894, 443.02356)
+
+[node name="RightWall" type="Sprite2D" parent="StaticBody2D3" unique_id=2077677110]
+position = Vector2(1594.7368, 805.26324)
+scale = Vector2(1.1934475, 1.1934475)
+texture = ExtResource("8_7ugy3")
+region_enabled = true
+region_rect = Rect2(504.99106, 40.976425, 33.00894, 443.02356)
+
+[node name="FloorCollider" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1484446682]
+position = Vector2(594.7368, 1026.0527)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="RoofCollider" type="CollisionShape2D" parent="StaticBody2D3" unique_id=342425977]
+position = Vector2(594.7368, 557.8948)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="LeftWallCollider" type="CollisionShape2D" parent="StaticBody2D3" unique_id=2047129616]
+position = Vector2(-421.05258, 784.2095)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="RightWallCollider" type="CollisionShape2D" parent="StaticBody2D3" unique_id=819999775]
+position = Vector2(1600, 784.2095)
+shape = SubResource("RectangleShape2D_xrivr")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
 color = Color(0.29954746, 0.29954746, 0.29954743, 1)
