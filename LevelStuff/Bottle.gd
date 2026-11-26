@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 var health = 1
 
 # Called when the node enters the scene tree for the first time.
@@ -9,13 +9,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Projectile") :
-		on_hit(1)
-	#put noisemaker here
-	pass # Replace with function body.
-
-func on_hit(dmg:float) :
+func on_hit(dmg:float, origin: Vector2) :
 	health-=dmg
 	if(health<=0):
 		queue_free()

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 var player: CharacterBody2D
 
+@onready var sprite: = $AnimatedSprite2D
+
 var dir := 1.0
 var can_move := true
 var can_patrol := false
@@ -11,8 +13,11 @@ var patrol_pos : Vector2
 var has_seen_player := false
 var is_chasing := false
 
+var objects_hit_cd := {}
+var dmg_cooldown := 1.0
+
 func stare() -> void:
-	if not player: return
+	if not is_instance_valid(player): return
 	
 	var diff := (player.position.x - position.x)
 	if diff < 0:
@@ -24,7 +29,6 @@ func chase(dt):
 	is_chasing = true
 	var reached_player = move_to(player.global_position, dt)
 	if reached_player:
-		reset()
 		is_chasing = false
 
 func see_infront() -> Dictionary:
@@ -35,12 +39,19 @@ func see_infront() -> Dictionary:
 	
 	return result
 
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if objects_hit_cd.has(body) and objects_hit_cd[body] > 0: return
+	
+	if body != self and body.has_method("on_hit"):
+		objects_hit_cd[body] = dmg_cooldown
+		body.on_hit(35, Vector2(global_position.x, player.global_position.y + 50))
+
 func move_to(move_pos, dt):
 	if not can_move: return
 	move_reached = false
 	
 	var input_direction = (move_pos - position).normalized()
-	var acceleration = 200
+	var acceleration = 300
 	velocity.x = lerp(velocity.x, input_direction.x * acceleration, dt*7)
 	is_move = true
 	
@@ -71,24 +82,41 @@ func reset():
 	is_chasing = false
 	move_reached = true
 	
-func on_hit(dmg):
-	reset()
+func on_hit(dmg, origin: Vector2):
+	has_seen_player= true
+
+func play_sound():
+	var char_v := get_real_velocity().length()
+	if char_v > 0.1 and is_on_floor():
+		if not $walk.is_playing(): $walk.play()
+	else:
+		$walk.stop()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().process_frame
-	player = get_tree().get_first_node_in_group("player")
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	player = get_tree().get_first_node_in_group("player")
+	if not is_instance_valid(player): return
 	
 	# flip based on velocity
 	dir = velocity.normalized().x
 	if dir == 1.0:
-		$AnimatedSprite2D.flip_h = false
-	elif dir == -1.0:
 		$AnimatedSprite2D.flip_h = true
+	elif dir == -1.0:
+		$AnimatedSprite2D.flip_h = false
+	
+	if get_real_velocity().length() > 0.1:
+		if sprite.animation != "run":
+			sprite.play("run")
+	else:
+		sprite.play("idle")
+	
+	# check if player is inside monster
+	for body in $Area2D.get_overlapping_bodies():
+		_on_area_2d_body_entered(body)
 	
 	can_patrol = true
 	var ray_result = see_infront()
@@ -98,10 +126,16 @@ func _process(delta: float) -> void:
 	
 	if has_seen_player:
 		can_patrol = false
-		stare()
+		#stare()
 		chase(delta)
 	patrol(delta)
 	
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 	move_and_slide()
+	
+	play_sound()
+	for object in objects_hit_cd:
+		objects_hit_cd[object] -= delta
+		if objects_hit_cd[object] <= 0:
+			objects_hit_cd.erase(object)

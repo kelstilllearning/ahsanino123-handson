@@ -9,11 +9,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if (body.is_in_group("Projectile")) :
-		on_hit(1)
-
-func on_hit(dmg:float):
+func on_hit(dmg:float, origin: Vector2):
 	health -= dmg
 	if (health<= 0) :
 		print("Blockade Rusak")

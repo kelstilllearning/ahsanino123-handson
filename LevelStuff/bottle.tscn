@@ -6,9 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(16, 48)
 
-[node name="Bottle" type="Area2D" unique_id=1809200111]
-collision_layer = 128
-collision_mask = 128
+[node name="Bottle" type="StaticBody2D" unique_id=1112767523]
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_bpi1m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1001372785]
@@ -18,5 +18,3 @@ shape = SubResource("RectangleShape2D_xrivr")
 rotation = -0.7853982
 scale = Vector2(0.68826926, 0.68826926)
 texture = ExtResource("2_bpi1m")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

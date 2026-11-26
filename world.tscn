@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://rt3p6danmrw7"]
 
-[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="1_f3sb7"]
-[ext_resource type="PackedScene" uid="uid://dy374efnrhhqx" path="res://monster.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="4_dwbse"]
+[ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="5_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="6_gbfbk"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xsrrp"]
 
@@ -40,10 +41,25 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=607888154]
-color = Color(0.28485027, 0.28485027, 0.28485027, 1)
+color = Color(0.62967473, 0.62967473, 0.6296747, 1)
 
-[node name="player" parent="." unique_id=1823296694 groups=["player"] instance=ExtResource("1_f3sb7")]
-position = Vector2(0, -50)
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=682923146]
+offset = Vector2(100, 0)
+transform = Transform2D(1, 0, 0, 1, 100, 0)
 
-[node name="monster" parent="." unique_id=2038360363 groups=["enemies"] instance=ExtResource("2_fj7yv")]
-position = Vector2(813, -100)
+[node name="props2" type="Node2D" parent="." unique_id=893502525]
+
+[node name="Blockade" parent="props2" unique_id=774514752 instance=ExtResource("4_dwbse")]
+position = Vector2(-383, -64)
+
+[node name="Blockade2" parent="props2" unique_id=327772352 instance=ExtResource("4_dwbse")]
+position = Vector2(-578, -64)
+
+[node name="Blockade3" parent="props2" unique_id=1491839818 instance=ExtResource("4_dwbse")]
+position = Vector2(-752, -64)
+
+[node name="Bottle" parent="props2" unique_id=1809200111 instance=ExtResource("5_pkg7o")]
+position = Vector2(261, -24)
+
+[node name="Door" parent="props2" unique_id=1795832014 instance=ExtResource("6_gbfbk")]
+position = Vector2(561, -40)
