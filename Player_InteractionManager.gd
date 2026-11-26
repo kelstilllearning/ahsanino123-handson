@@ -32,14 +32,18 @@ signal locksuccess
 signal interaction_started
 signal interaction_ended
 signal lockpick_state_changed(is_active: bool)
+signal candle_lit(current_count: int, max_count: int)
+signal game_ended
 
 @export var near_interactables: Array[Node2D] = []
 @export var highlight_color: Color = Color(1.0, 0.9, 0.15, 1.0)
 @export var highlight_width: float = 1.5
+@export var max_candles: int = 3
 
 @onready var parent: Node = get_parent()
 @onready var ui_layer: CanvasLayer = find_child("CanvasLayer", false, false)
 
+var lit_candles: int = 0
 var lockpick_status: bool = false
 var lockpick_current: Node = null
 var _outline_material: ShaderMaterial
@@ -131,7 +135,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _start_lockpick() -> void:
 	lockpick_status = true
-	get_parent().busyness.emit()
+	if is_instance_valid(parent) and parent.has_signal("busyness"):
+		parent.busyness.emit()
 	interaction_started.emit()
 	lockpick_state_changed.emit(true)
 	
@@ -164,8 +169,26 @@ func delete_lock() -> void:
 		lockpick_current.queue_free()
 		await get_tree().process_frame
 		lockpick_current = null
+	if is_instance_valid(parent) and parent.has_signal("busyness"):
 		parent.busyness.emit()
 
 func lockpicksuccess() -> void:
-	if is_instance_valid(targeted) and targeted.has_signal("successfullock"):
-		targeted.successfullock.emit()
+	if is_instance_valid(targeted):
+		if targeted.has_signal("successfullock"):
+			targeted.successfullock.emit()
+			
+		# Only count ritual circles toward the candle counter (ignores normal lockpicked doors)
+		if targeted.has_signal("ritual_completed"):
+			add_lit_candle()
+
+func add_lit_candle() -> void:
+	lit_candles += 1
+	candle_lit.emit(lit_candles, max_candles)
+	
+	if lit_candles >= max_candles:
+		_on_game_ended()
+
+func _on_game_ended() -> void:
+	game_ended.emit()
+	print("I HATE NIGGERS")
+	pass

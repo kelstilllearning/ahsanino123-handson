@@ -7,7 +7,7 @@ signal lockpick_finished(success: bool)
 @export var target_sizes: Array[int] = [3, 1, 2]
 @export var step_interval: float = 2.0
 
-# Placeholder textures for sizes 4, 3, 2, 1 (drop your sprites here in the Inspector)
+# Placeholder textures for sizes 4, 3, 2, 1
 @export var texture_size_4: Texture2D
 @export var texture_size_3: Texture2D
 @export var texture_size_2: Texture2D
@@ -22,13 +22,13 @@ signal lockpick_finished(success: bool)
 
 var current_candle_index: int = 0
 var current_size: int = 4
-var is_holding: bool = false
+var was_holding: bool = false
 var hold_timer: float = 0.0
 var is_resetting: bool = false
+var _base_bottom_y: float = 0.0
 
-# Tracks visual state per candle for fallback drawing when textures are unassigned
 var _candle_sizes: Array[int] = [4, 4, 4]
-var _flame_states: Array[String] = ["red", "red", "red"]
+var _flame_states: Array[String] = ["off", "off", "off"]
 var _smoke_states: Array[bool] = [false, false, false]
 
 const PLACEHOLDER_HEIGHTS := {
@@ -40,66 +40,63 @@ const PLACEHOLDER_HEIGHTS := {
 }
 
 func _ready() -> void:
-	var half_size: Vector2 = size * 0.5
-	if half_size == Vector2.ZERO:
-		half_size = custom_minimum_size * 0.5
-	anchor_left = 0.5
-	anchor_top = 0.5
-	anchor_right = 0.5
-	anchor_bottom = 0.5
-	offset_left = -half_size.x
-	offset_top = -half_size.y
-	offset_right = half_size.x
-	offset_bottom = half_size.y
+	if size.x < 100.0 or size.y < 100.0:
+		size = custom_minimum_size if custom_minimum_size != Vector2.ZERO else Vector2(600, 320)
+	set_anchors_preset(Control.PRESET_CENTER, true)
+	position = (get_viewport_rect().size - size) * 0.5
 	
+	var candle_width := 54.0
+	_base_bottom_y = size.y * 0.78
+	var spacing := size.x / float(candles.size() + 1)
+	for i in range(candles.size()):
+		candles[i].size = Vector2(candle_width, PLACEHOLDER_HEIGHTS[4])
+		candles[i].position = Vector2(spacing * (i + 1) - (candle_width * 0.5), _base_bottom_y - PLACEHOLDER_HEIGHTS[4])
+		
 	_reset_all_candles()
 
 func _reset_all_candles() -> void:
 	current_candle_index = 0
 	current_size = 4
-	is_holding = false
+	was_holding = false
 	hold_timer = 0.0
 	is_resetting = false
 	
 	for i in range(candles.size()):
 		_apply_candle_size(i, 4)
-		_set_flame_state(i, "red")
+		_set_flame_state(i, "off")
 		_set_smoke_visible(i, false)
 	queue_redraw()
 
 func _process(delta: float) -> void:
-	if is_resetting or not is_holding:
+	if is_resetting:
 		return
 		
-	hold_timer += delta
-	if hold_timer >= step_interval:
-		hold_timer -= step_interval
-		current_size -= 1
-		
-		if current_size < 1:
-			_apply_candle_size(current_candle_index, 0)
-			_trigger_fail(current_candle_index)
-		else:
-			_apply_candle_size(current_candle_index, current_size)
+	var holding_now := Input.is_action_pressed("Lockpick")
+	
+	if holding_now:
+		if not was_holding:
+			was_holding = true
+			hold_timer = 0.0
+			_set_flame_state(current_candle_index, "red")
+			
+		hold_timer += delta
+		if hold_timer >= step_interval:
+			hold_timer -= step_interval
+			current_size -= 1
+			
+			if current_size < 1:
+				_apply_candle_size(current_candle_index, 0)
+				_trigger_fail(current_candle_index)
+			else:
+				_apply_candle_size(current_candle_index, current_size)
+	elif was_holding:
+		was_holding = false
+		_evaluate_release()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
 		get_viewport().set_input_as_handled()
 		lockpick_finished.emit(false)
-		return
-		
-	if is_resetting:
-		return
-		
-	if event.is_action_pressed("Lockpick") and not event.is_echo():
-		get_viewport().set_input_as_handled()
-		is_holding = true
-		hold_timer = 0.0
-		
-	elif event.is_action_released("Lockpick") and is_holding:
-		get_viewport().set_input_as_handled()
-		is_holding = false
-		_evaluate_release()
 
 func _evaluate_release() -> void:
 	var expected_size: int = target_sizes[current_candle_index]
@@ -120,7 +117,7 @@ func _evaluate_release() -> void:
 		_trigger_fail(current_candle_index)
 
 func _trigger_fail(failed_index: int) -> void:
-	is_holding = false
+	was_holding = false
 	is_resetting = true
 	_set_flame_state(failed_index, "off")
 	_set_smoke_visible(failed_index, true)
@@ -142,13 +139,9 @@ func _apply_candle_size(index: int, size_step: int) -> void:
 		candle.texture = tex
 		candle.visible = true
 	else:
-		# Ensure non-zero width even when TextureRect has no texture assigned
-		if candle.size.x < 10.0:
-			candle.size.x = 50.0
 		var target_h: float = PLACEHOLDER_HEIGHTS.get(size_step, 0.0)
-		var bottom_y: float = candle.position.y + candle.size.y
 		candle.size.y = target_h
-		candle.position.y = bottom_y - target_h
+		candle.position.y = _base_bottom_y - target_h
 		candle.visible = (size_step > 0)
 		
 	var flame := candle.find_child("Flame", false, false)
@@ -183,7 +176,6 @@ func _set_smoke_visible(index: int, show_smoke: bool) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	# Fallback visual blocks whenever textures are not assigned yet
 	for i in range(candles.size()):
 		var candle := candles[i]
 		var size_step := _candle_sizes[i]
@@ -192,19 +184,19 @@ func _draw() -> void:
 			
 		var has_candle_tex := (candle is TextureRect and candle.texture != null)
 		if not has_candle_tex:
-			var rect := Rect2(candle.position, Vector2(maxf(candle.size.x, 50.0), candle.size.y))
-			draw_rect(rect, Color(0.92, 0.88, 0.78)) # Wax color
-			draw_rect(rect, Color(0.2, 0.2, 0.2), false, 2.0) # Outline
+			var rect := Rect2(candle.position, Vector2(candle.size.x, candle.size.y))
+			draw_rect(rect, Color(0.92, 0.88, 0.78))
+			draw_rect(rect, Color(0.2, 0.2, 0.2), false, 2.0)
 			
 		var flame := candle.find_child("Flame", false, false)
 		var has_flame_tex := (flame is TextureRect and flame.texture != null)
 		if not has_flame_tex:
-			var top_center := Vector2(candle.position.x + maxf(candle.size.x, 50.0) * 0.5, candle.position.y - 14.0)
+			var top_center := Vector2(candle.position.x + candle.size.x * 0.5, candle.position.y - 14.0)
 			if _flame_states[i] == "red":
 				draw_circle(top_center, 10.0, Color.ORANGE_RED)
 			elif _flame_states[i] == "blue":
 				draw_circle(top_center, 10.0, Color.DEEP_SKY_BLUE)
 				
 		if _smoke_states[i]:
-			var smoke_pos := Vector2(candle.position.x + maxf(candle.size.x, 50.0) * 0.5, candle.position.y - 24.0)
+			var smoke_pos := Vector2(candle.position.x + candle.size.x * 0.5, candle.position.y - 24.0)
 			draw_circle(smoke_pos, 12.0, Color(0.7, 0.7, 0.7, 0.7))
