@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://df6tj14jy1uk"]
+
+[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="1_r5roq"]
+[ext_resource type="Script" uid="uid://b8e7pm8b5wq3" path="res://moving.gd" id="2_b2cbf"]
+
+[node name="LockpickingTestplace" type="Node2D" unique_id=991495851]
+
+[node name="Panel" type="Panel" parent="." unique_id=952506034]
+offset_left = -450.0
+offset_top = -275.0
+offset_right = 465.49683
+offset_bottom = 277.8192
+script = ExtResource("2_b2cbf")
+
+[node name="MovingKey" type="TextureRect" parent="Panel" unique_id=965966128]
+layout_mode = 0
+offset_left = 436.2484
+offset_top = 254.0
+offset_right = 564.2484
+offset_bottom = 382.0
+scale = Vector2(0.3199997, 0.3199997)
+texture = ExtResource("1_r5roq")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1873728619]

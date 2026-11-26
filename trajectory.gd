@@ -24,6 +24,9 @@ func _ready() -> void:
 	_refresh()
 
 func _refresh():
+	if not is_instance_valid(player): return
+	if not get_parent().get_node("player"): return
+	
 	clear_points()
 	linePosition = get_parent().get_node("player").position
 	
@@ -34,6 +37,7 @@ func _refresh():
 	thrown_preview = false
 	
 func get_velocity_for_fixed_speed(start_pos: Vector2, target_pos: Vector2, speed: float, grav: float) -> Vector2:
+	if not is_instance_valid(player): return Vector2.ZERO
 	var dx: float = abs(target_pos.x - start_pos.x)
 	var dy: float = -(target_pos.y - start_pos.y) # Invert Y because +Y is down in Godot 2D
 	
@@ -61,6 +65,7 @@ func get_velocity_for_fixed_speed(start_pos: Vector2, target_pos: Vector2, speed
 	return vel
 
 func simulate_throw(obj: Node2D):
+	if not is_instance_valid(player): return
 	clear_points()
 	
 	# get v
@@ -121,9 +126,10 @@ func throw(origin1, throw_pos1, gravity1, max_throwing_t, max_throwing_p, dmg):
 		
 	# check if it has on_hit function
 	if is_instance_valid(hit_object) and hit_object.has_method("on_hit"):
-		hit_object.on_hit(dmg)
+		hit_object.on_hit(dmg, prev_pos)
 
 func _update_trajectory(i, dt: float, v: Vector2):
+	if not is_instance_valid(player): return
 	if not (thrown_preview or thrown): return
 	
 	# calculate x & y axis
@@ -131,7 +137,7 @@ func _update_trajectory(i, dt: float, v: Vector2):
 	var y : float =  origin.y + (v.y*dt + 0.5*(gravity*dt*dt))
 	
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(prev_pos, Vector2(x, y))
+	var query = PhysicsRayQueryParameters2D.create(prev_pos, Vector2(x, y), 7)
 	var result = space_state.intersect_ray(query)
 	
 	collision = result
