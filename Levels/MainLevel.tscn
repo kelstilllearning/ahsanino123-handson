@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c6i03sc7qwotv"]
 
 [ext_resource type="Texture2D" uid="uid://cb08mgf6ew406" path="res://Levels/mainlevelresources/Area1Base.png" id="1_ovnwc"]
-[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="2_dncm7"]
 [ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="2_j5hpt"]
 [ext_resource type="Texture2D" uid="uid://d3kgk1ptca3dk" path="res://Levels/mainlevelresources/Area1Foreground.png" id="3_0tv47"]
 [ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="4_ok4l4"]
@@ -90,6 +89,3 @@ target_teleporter = NodePath("../../Level/HallwayTransition")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
 color = Color(0.29954746, 0.29954746, 0.29954743, 1)
-
-[node name="player" parent="." unique_id=231474794 instance=ExtResource("2_dncm7")]
-position = Vector2(-96, -128)
