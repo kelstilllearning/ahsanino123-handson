@@ -39,7 +39,7 @@ func see_infront() -> Dictionary:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body != self and body.has_method("on_hit"):
-		body.on_hit(350, global_position)
+		body.on_hit(35, global_position)
 
 func move_to(move_pos, dt):
 	if not can_move: return
