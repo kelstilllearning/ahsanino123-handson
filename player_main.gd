@@ -41,13 +41,12 @@ func on_hit(dmg: float, origin: Vector2):
 #############################
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	connect("busyness", busytoggle)
 	var lineScene = preload("res://trajectoryline.tscn")
 	trajectoryline = lineScene.instantiate()
-	get_tree().current_scene.add_child.call_deferred(trajectoryline)
+	get_tree().root.add_child.call_deferred(trajectoryline)
 	
 	# setup canvaslayer
-	var canvas = $"../CanvasLayer"
+	var canvas = $"CanvasLayer"
 	var offset_val = get_viewport().get_visible_rect().size / 2
 	canvas.offset = offset_val
 	
@@ -218,6 +217,3 @@ func _process(dt: float) -> void:
 		var shake_multiplier = 0.004
 		var shake_power = (max_dist - dist) * shake_multiplier if dist < max_dist else 0.0
 		$Camera2D.apply_shake(shake_power)
-		
-func busytoggle():
-	busy = not busy
