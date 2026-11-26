@@ -11,6 +11,9 @@ size = Vector2(16, 322)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1lj4"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r6i7"]
+size = Vector2(1760, 20)
+
 [node name="Node2D" type="Node2D" unique_id=1969980107]
 
 [node name="Hallway" type="Node2D" parent="." unique_id=1276958951]
@@ -38,6 +41,7 @@ shape = SubResource("RectangleShape2D_b1lj4")
 position = Vector2(0, -304)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hallway/Roof" unique_id=1611975224]
+shape = SubResource("RectangleShape2D_0r6i7")
 
 [node name="Door" parent="Hallway" unique_id=1795832014 instance=ExtResource("1_a6k5m")]
 position = Vector2(-456, -49)

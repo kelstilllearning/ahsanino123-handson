@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://3phdxp3jwivn"]
+
+[ext_resource type="Script" uid="uid://c4ab8bi85dagf" path="res://ritual_circle.gd" id="1_8q82c"]
+[ext_resource type="PackedScene" uid="uid://bixla5ijpj00r" path="res://RitualCandleStuff/CandleRitualPopup.tscn" id="2_6sxkf"]
+[ext_resource type="Texture2D" uid="uid://b70k8r0lu1pvf" path="res://RitualCandleStuff/Soaked_Candle_Dropped.png" id="3_x4fvv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbk63"]
+radius = 80.399
+
+[node name="RitualCircle" type="Area2D" unique_id=1498584817]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_8q82c")
+minigame_scene = ExtResource("2_6sxkf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1509892656]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_jbk63")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=26330038]
+position = Vector2(0, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("3_x4fvv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1653749511]
+position = Vector2(24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("3_x4fvv")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1382855509]
+position = Vector2(-24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("3_x4fvv")
+
+[node name="Control" type="Control" parent="." unique_id=1486616188]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
