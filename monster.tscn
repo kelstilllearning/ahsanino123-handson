@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://du6kxl5ycugho" path="res://sprite/monster_sprite/Idle.png" id="2_ga5te"]
 [ext_resource type="Texture2D" uid="uid://cagwp36y5o4fv" path="res://sprite/monster_sprite/Walking.png" id="2_mrqeg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5328"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ga5te"]
 size = Vector2(105.2, 75.399994)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vr0w3"]
@@ -76,15 +76,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vr0w3"]
+size = Vector2(67.8, 55.966667)
+
 [node name="monster" type="CharacterBody2D" unique_id=1823296694]
 z_index = 1
-collision_layer = 4
+collision_layer = 15
 script = ExtResource("1_8ngjm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=726531149]
+[node name="monster_collision" type="CollisionShape2D" parent="." unique_id=321977507]
 position = Vector2(0, -9.499998)
 scale = Vector2(3.75, 3.75)
-shape = SubResource("RectangleShape2D_h5328")
+shape = SubResource("RectangleShape2D_ga5te")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=203914875]
 position = Vector2(0, -10)
@@ -99,8 +102,8 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="area_detector" type="CollisionShape2D" parent="Area2D" unique_id=561991095]
-position = Vector2(0, -9.499998)
+position = Vector2(-70.12499, 26.937494)
 scale = Vector2(3.75, 3.75)
-shape = SubResource("RectangleShape2D_h5328")
+shape = SubResource("RectangleShape2D_vr0w3")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -137,7 +137,8 @@ func _update_trajectory(i, dt: float, v: Vector2):
 	var y : float =  origin.y + (v.y*dt + 0.5*(gravity*dt*dt))
 	
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(prev_pos, Vector2(x, y), 7)
+	var query = PhysicsRayQueryParameters2D.create(prev_pos, Vector2(x, y), 15)
+	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
 	
 	collision = result

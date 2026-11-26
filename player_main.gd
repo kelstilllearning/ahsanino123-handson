@@ -92,11 +92,11 @@ func _throw(dt: float, release: bool) -> void:
 		if throw:
 			shooting = true
 			var throw_pos := get_global_mouse_position()
-			var origin := global_position + Vector2(30, -20)
+			var origin := global_position + Vector2(0, -20)
 					# rotate character according to mouse pos
 			if (throw_pos.x - global_position.x) <= 0:
 				sprite.flip_h = true
-				origin = global_position + Vector2(-30, -20)
+				origin = global_position + Vector2(-0, -20)
 			else:
 				sprite.flip_h = false
 			
@@ -119,9 +119,9 @@ func _throw(dt: float, release: bool) -> void:
 			
 	else: #releaase: shoot
 		var throw_pos := get_global_mouse_position()
-		var origin := global_position + Vector2(30, -20)
+		var origin := global_position + Vector2(0, -20)
 		if (throw_pos.x - global_position.x) <= 0:
-			origin = global_position + Vector2(-30, -20)
+			origin = global_position + Vector2(-0, -20)
 			
 		trajectoryline.throw(origin, throw_pos, gravity, max_throwing_time, throwing_power, slingshot_damage)
 		
