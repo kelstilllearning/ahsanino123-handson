@@ -3,6 +3,7 @@ extends player
 var throw := false
 var right := false
 var left := false
+var running := false
 var jump := false
 var crouch := false
 var direction := "right"
@@ -152,15 +153,29 @@ func _crouch(dt) -> float:
 	
 	return 0.5
 
+func play_sound():
+	var char_v := get_real_velocity().length()
+	if char_v > 0.1 and running and is_on_floor():
+		if not $walk.is_playing(): $walk.play()
+	else:
+		$walk.stop()
+	
+	if char_v > 0.1 and crouch and is_on_floor():
+		if not $crouch.is_playing(): $crouch.play()
+	else:
+		$crouch.stop()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(dt: float) -> void:
 	var input_direction := Vector2.ZERO
 	
 	if (get_real_velocity().length() > acceleration/3) and is_on_floor() and not shooting and not crouch:
+		running = true
 		if sprite.animation != "run":
 			sprite.play("run")
 	elif is_on_floor() and not shooting and not crouch:
 		sprite.play("idle")
+		running = false
 	
 	if right:
 		input_direction.x = 1
@@ -172,6 +187,7 @@ func _process(dt: float) -> void:
 		direction = "left"
 	if jump and is_on_floor() and not (shooting or crouch):
 		velocity.y -= jump_power
+	if not is_on_floor():
 		sprite.play("jump")
 		
 	input_direction = input_direction.normalized()
@@ -182,7 +198,7 @@ func _process(dt: float) -> void:
 	
 	var multiplier = 1
 	multiplier *= _crouch(dt)
-	multiplier = multiplier*0.2 if shooting else multiplier
+	multiplier = multiplier*0 if shooting else multiplier
 	
 	velocity.x = lerp(speed.x, input_direction.x * acceleration * multiplier, dt*7)
 	velocity += ext_force
@@ -192,7 +208,7 @@ func _process(dt: float) -> void:
 	
 	#-------------------------
 	_throw(dt, false)
-	
+	play_sound()
 	#-----------------------------
 	var enemy = get_tree().get_first_node_in_group("enemies")
 	if enemy:

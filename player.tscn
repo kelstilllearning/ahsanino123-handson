@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://b7cifrecv5pcn" path="res://sprite/Jumping.png" id="6_b26j0"]
 [ext_resource type="Texture2D" uid="uid://e0smedhvncxy" path="res://sprite/Walking.png" id="7_n7ghd"]
 [ext_resource type="Script" uid="uid://mte2k000uwjv" path="res://Player_InteractionManager.gd" id="9_b26j0"]
+[ext_resource type="AudioStream" uid="uid://daohyjqymphbm" path="res://sound/walkloop2.wav" id="10_n7ghd"]
+[ext_resource type="AudioStream" uid="uid://ctgl4glwrium7" path="res://sound/crouchloop.wav" id="11_nvl01"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5328"]
 size = Vector2(10, 15)
@@ -215,3 +217,11 @@ autoplay = "idle"
 
 [node name="InteractionManager" type="Node2D" parent="." unique_id=678357974]
 script = ExtResource("9_b26j0")
+
+[node name="walk" type="AudioStreamPlayer2D" parent="." unique_id=604957720]
+stream = ExtResource("10_n7ghd")
+volume_db = 6.0
+
+[node name="crouch" type="AudioStreamPlayer2D" parent="." unique_id=749780306]
+stream = ExtResource("11_nvl01")
+volume_db = 24.0

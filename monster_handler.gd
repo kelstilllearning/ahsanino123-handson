@@ -13,6 +13,9 @@ var patrol_pos : Vector2
 var has_seen_player := false
 var is_chasing := false
 
+var objects_hit_cd := {}
+var dmg_cooldown := 1.0
+
 func stare() -> void:
 	if not is_instance_valid(player): return
 	
@@ -26,7 +29,6 @@ func chase(dt):
 	is_chasing = true
 	var reached_player = move_to(player.global_position, dt)
 	if reached_player:
-		reset()
 		is_chasing = false
 
 func see_infront() -> Dictionary:
@@ -38,8 +40,11 @@ func see_infront() -> Dictionary:
 	return result
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	if objects_hit_cd.has(body) and objects_hit_cd[body] > 0: return
+	
 	if body != self and body.has_method("on_hit"):
-		body.on_hit(35, global_position)
+		objects_hit_cd[body] = dmg_cooldown
+		body.on_hit(35, Vector2(global_position.x, player.global_position.y + 50))
 
 func move_to(move_pos, dt):
 	if not can_move: return
@@ -80,10 +85,16 @@ func reset():
 func on_hit(dmg, origin: Vector2):
 	has_seen_player= true
 
+func play_sound():
+	var char_v := get_real_velocity().length()
+	if char_v > 0.1 and is_on_floor():
+		if not $walk.is_playing(): $walk.play()
+	else:
+		$walk.stop()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -103,6 +114,9 @@ func _process(delta: float) -> void:
 	else:
 		sprite.play("idle")
 	
+	# check if player is inside monster
+	for body in $Area2D.get_overlapping_bodies():
+		_on_area_2d_body_entered(body)
 	
 	can_patrol = true
 	var ray_result = see_infront()
@@ -119,3 +133,9 @@ func _process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 	move_and_slide()
+	
+	play_sound()
+	for object in objects_hit_cd:
+		objects_hit_cd[object] -= delta
+		if objects_hit_cd[object] <= 0:
+			objects_hit_cd.erase(object)
