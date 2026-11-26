@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://bovdx85cvxbl5"]
+
+[ext_resource type="Script" uid="uid://c07v5u11aj3ed" path="res://setup_char.gd" id="1_b5jqd"]
+[ext_resource type="Texture2D" uid="uid://cbvtccectis0w" path="res://reference.png" id="2_8pv2q"]
+[ext_resource type="Texture2D" uid="uid://7ede0fs7uqpn" path="res://body_parts/back_arm.png" id="3_vwayh"]
+[ext_resource type="Texture2D" uid="uid://cw4xe42xvgd2o" path="res://body_parts/back_leg.png" id="4_fq40n"]
+[ext_resource type="Texture2D" uid="uid://db5rt4yl8qxkm" path="res://body_parts/front_arm.png" id="5_vcwda"]
+[ext_resource type="Texture2D" uid="uid://cyokjthcja3ba" path="res://body_parts/front_leg.png" id="6_3tsy7"]
+[ext_resource type="Texture2D" uid="uid://calekmxngy7r5" path="res://body_parts/head.png" id="7_xnm7r"]
+[ext_resource type="Texture2D" uid="uid://7dreev24s8q1" path="res://body_parts/torso.png" id="8_mviml"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5328"]
+atlas = ExtResource("3_vwayh")
+region = Rect2(17, 11, 3, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ct3r"]
+atlas = ExtResource("4_fq40n")
+region = Rect2(15, 19, 4, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kp85"]
+atlas = ExtResource("5_vcwda")
+region = Rect2(10, 11, 3, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnedo"]
+atlas = ExtResource("6_3tsy7")
+region = Rect2(10, 19, 4, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyqjk"]
+atlas = ExtResource("7_xnm7r")
+region = Rect2(13, 6, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k85er"]
+atlas = ExtResource("8_mviml")
+region = Rect2(12, 10, 6, 10)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1140781524]
+script = ExtResource("1_b5jqd")
+
+[node name="Reference" type="Sprite2D" parent="." unique_id=2105644235]
+visible = false
+texture = ExtResource("2_8pv2q")
+
+[node name="body_parts" type="Node2D" parent="." unique_id=1134617368]
+
+[node name="BackArm" type="Sprite2D" parent="body_parts" unique_id=468108104]
+position = Vector2(2, 1)
+texture = SubResource("AtlasTexture_h5328")
+
+[node name="BackLeg" type="Sprite2D" parent="body_parts" unique_id=501765800]
+position = Vector2(1, 10)
+texture = SubResource("AtlasTexture_6ct3r")
+
+[node name="FrontArm" type="Sprite2D" parent="body_parts" unique_id=12527244]
+position = Vector2(-5, 1)
+texture = SubResource("AtlasTexture_1kp85")
+
+[node name="FrontLeg" type="Sprite2D" parent="body_parts" unique_id=1451264075]
+position = Vector2(-4, 10)
+texture = SubResource("AtlasTexture_qnedo")
+
+[node name="Head" type="Sprite2D" parent="body_parts" unique_id=1155295811]
+position = Vector2(-1, -7)
+texture = SubResource("AtlasTexture_wyqjk")
+
+[node name="Torso" type="Sprite2D" parent="body_parts" unique_id=723931576]
+position = Vector2(-1, 0)
+texture = SubResource("AtlasTexture_k85er")
+
+[node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=1631232476]
+
+[node name="waist" type="Bone2D" parent="Skeleton2D" unique_id=41450090]
+position = Vector2(-1, 3)
+rotation = -1.5707964
+rest = Transform2D(-4.371139e-08, -1, 1, -4.371139e-08, -1, 3)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="front_leg" type="Bone2D" parent="Skeleton2D/waist" unique_id=118531179]
+position = Vector2(-0.99999976, -3)
+rotation = -3.1415925
+scale = Vector2(4.2799997, 1)
+rest = Transform2D(-4.2799997, -3.7416947e-07, 8.742278e-08, -1, -0.99999976, -3)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="back_leg" type="Bone2D" parent="Skeleton2D/waist" unique_id=573633855]
+position = Vector2(-1, 2)
+rotation = -3.1415925
+scale = Vector2(4.2799997, 1)
+rest = Transform2D(-4.2799997, -3.7416947e-07, 8.742278e-08, -1, -1, 0.99999994)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="torso" type="Bone2D" parent="Skeleton2D/waist" unique_id=1785253268]
+position = Vector2(3, 1.1920929e-07)
+scale = Vector2(1.4400002, 1)
+rest = Transform2D(1.4400002, 0, 0, 1, 3, 1.1920929e-07)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="head" type="Bone2D" parent="Skeleton2D/waist/torso" unique_id=1165492898]
+position = Vector2(4.166666, 2.6226832e-07)
+rest = Transform2D(1, 0, 0, 1, 4.166666, 2.6226832e-07)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="front_arm" type="Bone2D" parent="Skeleton2D/waist/torso" unique_id=257024673]
+position = Vector2(2.7777772, -4.0000005)
+rotation = -3.1415925
+scale = Vector2(3.3149571, -1.6853828)
+rest = Transform2D(-3.3149571, -2.8980276e-07, -1.4734084e-07, 1.6853828, 2.7777772, -4.0000005)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="back_arm" type="Bone2D" parent="Skeleton2D/waist/torso" unique_id=1808615354]
+position = Vector2(2.7777772, 4)
+rotation = -3.1415925
+scale = Vector2(3.3149571, -1.6853828)
+rest = Transform2D(-3.3149571, -2.8980276e-07, -1.4734084e-07, 1.6853828, 2.7777772, 3.0000005)
+auto_calculate_length_and_angle = false
+length = 2.0
+bone_angle = 0.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=155224875]
