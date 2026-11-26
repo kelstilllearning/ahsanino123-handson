@@ -6,6 +6,8 @@ var left := false
 var jump := false
 var direction := "right"
 var throwing_power := 0
+var busy = false
+
 signal busyness
 
 @onready var camera: Camera2D = $Camera2D

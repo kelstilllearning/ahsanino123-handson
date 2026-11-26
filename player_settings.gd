@@ -11,7 +11,6 @@ var max_throwing_range := 400.0
 var max_throwing_time := 3.0
 var max_throwing_power := 1200
 var throwing_charge_speed := 2.5
-var busy:bool = false
 
 # -- controls
 var min_zoom := 0.8
