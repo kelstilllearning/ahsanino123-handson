@@ -6,6 +6,7 @@ var left := false
 var jump := false
 var direction := "right"
 var throwing_power := 0
+signal busyness
 
 @onready var camera: Camera2D = $Camera2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -18,12 +19,16 @@ func zoom(multiplier: int) -> void:
 #############################
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	connect("busyness", busytoggle)
 	var lineScene = preload("res://trajectoryline.tscn")
 	trajectoryline = lineScene.instantiate()
 	get_tree().current_scene.add_child.call_deferred(trajectoryline)
 	
 
 func _unhandled_input(event: InputEvent) -> void:
+	if (busy) :
+		return
+		pass
 	if event.is_action_pressed("throw"):
 		throw = true
 	if event.is_action_pressed("right"):
@@ -89,3 +94,6 @@ func _process(dt: float) -> void:
 		trajectoryline._refresh()
 		throwing_power = 0
 	pass
+
+func busytoggle():
+	busy = not busy
