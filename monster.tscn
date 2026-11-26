@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://du6kxl5ycugho" path="res://sprite/monster_sprite/Idle.png" id="2_ga5te"]
 [ext_resource type="Texture2D" uid="uid://cagwp36y5o4fv" path="res://sprite/monster_sprite/Walking.png" id="2_mrqeg"]
 [ext_resource type="AudioStream" uid="uid://b55pif1llb4c3" path="res://sound/monstersteploop.wav" id="4_vr0w3"]
+[ext_resource type="AudioStream" uid="uid://dekqp46ll6hls" path="res://sound/monsterscream ig bro.wav" id="5_6tndq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga5te"]
 size = Vector2(105.2, 75.399994)
@@ -110,5 +111,9 @@ shape = SubResource("RectangleShape2D_vr0w3")
 [node name="walk" type="AudioStreamPlayer2D" parent="." unique_id=861776071]
 stream = ExtResource("4_vr0w3")
 volume_db = 4.0
+
+[node name="scream" type="AudioStreamPlayer2D" parent="." unique_id=1345055005]
+stream = ExtResource("5_6tndq")
+volume_db = 9.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

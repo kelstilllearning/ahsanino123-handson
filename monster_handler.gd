@@ -11,6 +11,7 @@ var move_reached := true
 var patrol_pos : Vector2
 
 var has_seen_player := false
+var first_seen_player := false
 var is_chasing := false
 
 var objects_hit_cd := {}
@@ -31,8 +32,9 @@ func chase(dt):
 	if reached_player:
 		is_chasing = false
 
-func see_infront() -> Dictionary:
-	var ray_pos = Vector2(200*dir, position.y)
+func see_infront() -> Dictionary: #more like raycast to player
+	var ray_dir: Vector2 = (player.global_position - global_position).normalized()
+	var ray_pos: Vector2 = global_position + ray_dir * 1000.0
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(position, ray_pos)
 	var result = space_state.intersect_ray(query)
@@ -44,7 +46,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	
 	if body != self and body.has_method("on_hit"):
 		objects_hit_cd[body] = dmg_cooldown
-		body.on_hit(35, Vector2(global_position.x, player.global_position.y + 50))
+		body.on_hit(35, global_position)
 
 func move_to(move_pos, dt):
 	if not can_move: return
@@ -63,7 +65,8 @@ func move_to(move_pos, dt):
 func patrol(dt: float):
 	if is_chasing: return
 	
-	if move_reached:
+	var char_v := get_real_velocity().length()
+	if move_reached or (char_v < 0.1): # kalo diam, anggap gagal mencapai tujuan
 		var x_pos = randi_range(-2000, 2000)
 		patrol_pos = Vector2(x_pos, position.y)
 		move_reached = false
@@ -121,13 +124,22 @@ func _process(delta: float) -> void:
 	can_patrol = true
 	var ray_result = see_infront()
 	if ray_result:
-		if ray_result.collider == player:
+		if ray_result.collider == player and not player.crouch:
 			has_seen_player = true
+			if not first_seen_player:
+				first_seen_player = true
+				$scream.play()
+		else:
+			has_seen_player = false
+	else:
+		has_seen_player = false
 	
 	if has_seen_player:
 		can_patrol = false
 		#stare()
 		chase(delta)
+	else:
+		first_seen_player = false
 	patrol(delta)
 	
 	if not is_on_floor():

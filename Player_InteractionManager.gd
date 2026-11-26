@@ -131,7 +131,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _start_lockpick() -> void:
 	lockpick_status = true
+<<<<<<< Updated upstream
 	get_parent().busyness.emit(true)
+=======
+	if is_instance_valid(parent) and parent.has_signal("busyness"):
+		parent.busyness.emit(true)
+>>>>>>> Stashed changes
 	interaction_started.emit()
 	lockpick_state_changed.emit(true)
 	
@@ -164,6 +169,10 @@ func delete_lock() -> void:
 		lockpick_current.queue_free()
 		await get_tree().process_frame
 		lockpick_current = null
+<<<<<<< Updated upstream
+=======
+	if is_instance_valid(parent) and parent.has_signal("busyness"):
+>>>>>>> Stashed changes
 		parent.busyness.emit(false)
 
 func lockpicksuccess() -> void:

@@ -1,227 +1,114 @@
 [gd_scene format=3 uid="uid://c6g582bfxvggi"]
 
-[ext_resource type="Script" uid="uid://ce2dc0k8tq1dp" path="res://player_main.gd" id="1_1jxqw"]
-[ext_resource type="Script" uid="uid://dhcpmk82nbxyl" path="res://camera_handler.gd" id="2_b26j0"]
-[ext_resource type="Texture2D" uid="uid://1n7oquanhyl3" path="res://light.png" id="2_dw050"]
-[ext_resource type="Texture2D" uid="uid://vljpdynjqqlv" path="res://sprite/Idle.png" id="4_1jxqw"]
-[ext_resource type="Texture2D" uid="uid://smwetvt6vsij" path="res://sprite/Slingshot.png" id="5_b26j0"]
-[ext_resource type="Texture2D" uid="uid://b42wv4nr6rjyw" path="res://sprite/Crouching.png" id="5_dw050"]
-[ext_resource type="Texture2D" uid="uid://b7cifrecv5pcn" path="res://sprite/Jumping.png" id="6_b26j0"]
-[ext_resource type="Texture2D" uid="uid://e0smedhvncxy" path="res://sprite/Walking.png" id="7_n7ghd"]
-[ext_resource type="Script" uid="uid://mte2k000uwjv" path="res://Player_InteractionManager.gd" id="9_b26j0"]
-[ext_resource type="AudioStream" uid="uid://daohyjqymphbm" path="res://sound/walkloop2.wav" id="10_n7ghd"]
-[ext_resource type="AudioStream" uid="uid://ctgl4glwrium7" path="res://sound/crouchloop.wav" id="11_nvl01"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Foreground.png" id="1_1jxqw"]
+[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="2_dw050"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Base.png" id="3_b26j0"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area2.png" id="4_n7ghd"]
+[ext_resource type="PackedScene" uid="uid://bxv0nkhmethla" path="res://LevelStuff/hallway_transition.tscn" id="5_nvl01"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="6_ivps1"]
+[ext_resource type="Texture2D" path="res://LevelStuff/Area3Base.png" id="7_urp6f"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5328"]
-size = Vector2(10, 15)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nvl01"]
-atlas = ExtResource("5_b26j0")
-region = Rect2(0, 0, 1700, 2048)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ugy3"]
+size = Vector2(1993.421, 10)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u1c27"]
-atlas = ExtResource("5_b26j0")
-region = Rect2(1700, 0, 1700, 2048)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsrrp"]
+size = Vector2(1536, 94)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jm5j8"]
-atlas = ExtResource("5_b26j0")
-region = Rect2(3400, 0, 1700, 2048)
+[node name="MainLevel" type="Node2D" unique_id=831240484]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7hik5"]
-atlas = ExtResource("5_b26j0")
-region = Rect2(5100, 0, 1700, 2048)
+[node name="Level" type="StaticBody2D" parent="." unique_id=1503879383]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ivps1"]
-atlas = ExtResource("5_dw050")
-region = Rect2(0, 0, 2048, 2048)
+[node name="Parallax2D" type="Parallax2D" parent="Level" unique_id=525529848]
+visible = false
+z_index = 10
+scroll_offset = Vector2(810.815, -235.385)
+repeat_size = Vector2(2110.68, 0)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_urp6f"]
-atlas = ExtResource("5_dw050")
-region = Rect2(2048, 0, 2048, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bwjto"]
-atlas = ExtResource("5_dw050")
-region = Rect2(4096, 0, 2048, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_606se"]
-atlas = ExtResource("5_dw050")
-region = Rect2(6144, 0, 2048, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1jxqw"]
-atlas = ExtResource("4_1jxqw")
-region = Rect2(0, 0, 1002, 2160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dw050"]
-atlas = ExtResource("4_1jxqw")
-region = Rect2(1002, 0, 1002, 2160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
-atlas = ExtResource("4_1jxqw")
-region = Rect2(2004, 0, 1002, 2160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
-atlas = ExtResource("4_1jxqw")
-region = Rect2(3006, 0, 1002, 2160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op7ga"]
-atlas = ExtResource("6_b26j0")
-region = Rect2(0, 0, 1700, 3840)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q13i1"]
-atlas = ExtResource("6_b26j0")
-region = Rect2(1700, 0, 1700, 3840)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pylmc"]
-atlas = ExtResource("6_b26j0")
-region = Rect2(3400, 0, 1700, 3840)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
-atlas = ExtResource("6_b26j0")
-region = Rect2(5100, 0, 1700, 3840)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ahtn"]
-atlas = ExtResource("7_n7ghd")
-region = Rect2(1080, 0, 1080, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7lmhl"]
-atlas = ExtResource("7_n7ghd")
-region = Rect2(2160, 0, 1080, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dx0e4"]
-atlas = ExtResource("7_n7ghd")
-region = Rect2(3240, 0, 1080, 2048)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tmop"]
-atlas = ExtResource("7_n7ghd")
-region = Rect2(0, 0, 1080, 2048)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_h5328"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nvl01")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u1c27")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jm5j8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7hik5")
-}],
-"loop": 0,
-"name": &"bow_shot",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ivps1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_urp6f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bwjto")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_606se")
-}],
-"loop": 1,
-"name": &"crouch",
-"speed": 2.5
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1jxqw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dw050")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b26j0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n7ghd")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op7ga")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q13i1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pylmc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pbfsw")
-}],
-"loop": 2,
-"name": &"jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ahtn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7lmhl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dx0e4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5tmop")
-}],
-"loop": 1,
-"name": &"run",
-"speed": 5.0
-}]
-
-[node name="player" type="CharacterBody2D" unique_id=1823296694 groups=["player"]]
-z_index = 1
-collision_layer = 4
-collision_mask = 19
-script = ExtResource("1_1jxqw")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=731217398]
-offset = Vector2(0, -30)
-zoom = Vector2(1.2, 1.2)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-script = ExtResource("2_b26j0")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=726531149]
+[node name="Sprite2D" type="Sprite2D" parent="Level/Parallax2D" unique_id=279305538]
+modulate = Color(1, 1, 1, 0.9098039)
+position = Vector2(0, -376)
 scale = Vector2(5, 5)
-shape = SubResource("RectangleShape2D_h5328")
+texture = ExtResource("1_1jxqw")
+centered = false
+offset = Vector2(0, -138.61)
 
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1204230710]
-color = Color(0.9647059, 0.6039216, 0.32941177, 1)
-energy = 2.0
-shadow_enabled = true
+[node name="Sprite2D2" type="Sprite2D" parent="Level/Parallax2D" unique_id=1830499284]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1728.6626, 618.86237)
+scale = Vector2(-29.886183, 4.4660664)
 texture = ExtResource("2_dw050")
-offset = Vector2(0, -10)
-texture_scale = 0.2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=203914875]
-position = Vector2(0, 2)
-scale = Vector2(0.04, 0.04)
-sprite_frames = SubResource("SpriteFrames_h5328")
-animation = &"bow_shot"
-autoplay = "idle"
+[node name="Sprite2D" type="Sprite2D" parent="Level" unique_id=1294609420]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(960, -304)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("2_dw050")
 
-[node name="InteractionManager" type="Node2D" parent="." unique_id=678357974]
-script = ExtResource("9_b26j0")
+[node name="Area1Base" type="Sprite2D" parent="Level" unique_id=655375754]
+position = Vector2(333, -80)
+scale = Vector2(2.0678596, 2.0678596)
+texture = ExtResource("3_b26j0")
 
-[node name="walk" type="AudioStreamPlayer2D" parent="." unique_id=604957720]
-stream = ExtResource("10_n7ghd")
-volume_db = 6.0
+[node name="Area2" type="Sprite2D" parent="Level" unique_id=1348584853]
+position = Vector2(1608, -160)
+scale = Vector2(2, 2)
+texture = ExtResource("4_n7ghd")
 
-[node name="crouch" type="AudioStreamPlayer2D" parent="." unique_id=749780306]
-stream = ExtResource("11_nvl01")
-volume_db = 24.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level" unique_id=1783357025]
+shape = SubResource("WorldBoundaryShape2D_xrivr")
+
+[node name="HallwayTransition" parent="Level" unique_id=204383538 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("5_nvl01")]
+position = Vector2(2072, -56)
+target_teleporter = NodePath("../../StaticBody2D2/HallwayTransition")
+
+[node name="Door" parent="Level" unique_id=1795832014 instance=ExtResource("6_ivps1")]
+position = Vector2(784, -72)
+scale = Vector2(1.52, 1.52)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1472868269]
+position = Vector2(0, -3912)
+scale = Vector2(1.52, 1.52)
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D2" unique_id=757174663]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(631.579, 689.4739)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("2_dw050")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1119684858]
+position = Vector2(594.7368, 1026.0526)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=445968955]
+position = Vector2(678.9474, 1552.6316)
+texture = ExtResource("7_urp6f")
+
+[node name="HallwayTransition" parent="StaticBody2D2" unique_id=264070325 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("5_nvl01")]
+position = Vector2(-263.1579, 984.2105)
+scale = Vector2(0.65789473, 0.65789473)
+target_teleporter = NodePath("../../Level/HallwayTransition")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+
+[node name="player_spawn" type="Node2D" parent="." unique_id=2082427049]
+position = Vector2(-396, -2417)
+
+[node name="monster_spawn1" type="Area2D" parent="." unique_id=870357421 groups=["monster_spawn_area"]]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn1" unique_id=1711118122]
+position = Vector2(-153, -111)
+shape = SubResource("RectangleShape2D_xsrrp")
+
+[node name="monster_spawn2" type="Area2D" parent="." unique_id=1161752464 groups=["monster_spawn_area"]]
+position = Vector2(933, -2344)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn2" unique_id=665901602]
+position = Vector2(556, -111)
+shape = SubResource("RectangleShape2D_xsrrp")

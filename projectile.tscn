@@ -1,9 +1,114 @@
 [gd_scene format=3 uid="uid://c3sovdajbhlej"]
 
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Foreground.png" id="1_0c7x6"]
 [ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="1_a85iw"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Base.png" id="3_wpwum"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area2.png" id="4_nsmhe"]
+[ext_resource type="PackedScene" uid="uid://bxv0nkhmethla" path="res://LevelStuff/hallway_transition.tscn" id="5_1umjp"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="6_se2ie"]
+[ext_resource type="Texture2D" path="res://LevelStuff/Area3Base.png" id="7_48ys4"]
 
-[node name="projectile" type="Node2D" unique_id=924267359 groups=["Projectile"]]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=785766348]
-scale = Vector2(0.2, 0.2)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ugy3"]
+size = Vector2(1993.421, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsrrp"]
+size = Vector2(1536, 94)
+
+[node name="MainLevel" type="Node2D" unique_id=831240484]
+
+[node name="Level" type="StaticBody2D" parent="." unique_id=1503879383]
+
+[node name="Parallax2D" type="Parallax2D" parent="Level" unique_id=525529848]
+visible = false
+z_index = 10
+scroll_offset = Vector2(810.815, -235.385)
+repeat_size = Vector2(2110.68, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Parallax2D" unique_id=279305538]
+modulate = Color(1, 1, 1, 0.9098039)
+position = Vector2(0, -376)
+scale = Vector2(5, 5)
+texture = ExtResource("1_0c7x6")
+centered = false
+offset = Vector2(0, -138.61)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Level/Parallax2D" unique_id=1830499284]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1728.6626, 618.86237)
+scale = Vector2(-29.886183, 4.4660664)
 texture = ExtResource("1_a85iw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level" unique_id=1294609420]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(960, -304)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("1_a85iw")
+
+[node name="Area1Base" type="Sprite2D" parent="Level" unique_id=655375754]
+position = Vector2(333, -80)
+scale = Vector2(2.0678596, 2.0678596)
+texture = ExtResource("3_wpwum")
+
+[node name="Area2" type="Sprite2D" parent="Level" unique_id=1348584853]
+position = Vector2(1608, -160)
+scale = Vector2(2, 2)
+texture = ExtResource("4_nsmhe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level" unique_id=1783357025]
+shape = SubResource("WorldBoundaryShape2D_xrivr")
+
+[node name="HallwayTransition" parent="Level" unique_id=204383538 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("5_1umjp")]
+position = Vector2(2072, -56)
+target_teleporter = NodePath("../../StaticBody2D2/HallwayTransition")
+
+[node name="Door" parent="Level" unique_id=1795832014 instance=ExtResource("6_se2ie")]
+position = Vector2(784, -72)
+scale = Vector2(1.52, 1.52)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1472868269]
+position = Vector2(0, -3912)
+scale = Vector2(1.52, 1.52)
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D2" unique_id=757174663]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(631.579, 689.4739)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("1_a85iw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1119684858]
+position = Vector2(594.7368, 1026.0526)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=445968955]
+position = Vector2(678.9474, 1552.6316)
+texture = ExtResource("7_48ys4")
+
+[node name="HallwayTransition" parent="StaticBody2D2" unique_id=264070325 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("5_1umjp")]
+position = Vector2(-263.1579, 984.2105)
+scale = Vector2(0.65789473, 0.65789473)
+target_teleporter = NodePath("../../Level/HallwayTransition")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+
+[node name="player_spawn" type="Node2D" parent="." unique_id=2082427049]
+position = Vector2(-396, -2417)
+
+[node name="monster_spawn1" type="Area2D" parent="." unique_id=870357421 groups=["monster_spawn_area"]]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn1" unique_id=1711118122]
+position = Vector2(-153, -111)
+shape = SubResource("RectangleShape2D_xsrrp")
+
+[node name="monster_spawn2" type="Area2D" parent="." unique_id=1161752464 groups=["monster_spawn_area"]]
+position = Vector2(933, -2344)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn2" unique_id=665901602]
+position = Vector2(556, -111)
+shape = SubResource("RectangleShape2D_xsrrp")

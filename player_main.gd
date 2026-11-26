@@ -12,6 +12,9 @@ var throwing_power := 0
 var busy := false
 var ext_force := Vector2.ZERO
 
+# sound var
+var slingshot_pulled := false
+
 signal busyness
 
 @onready var camera: Camera2D = $Camera2D
@@ -43,7 +46,11 @@ func on_hit(dmg: float, origin: Vector2):
 func _ready() -> void:
 	var lineScene = preload("res://trajectoryline.tscn")
 	trajectoryline = lineScene.instantiate()
+<<<<<<< Updated upstream
 	get_tree().root.get_node("World").add_child.call_deferred(trajectoryline)
+=======
+	get_tree().current_scene.add_child.call_deferred(trajectoryline)
+>>>>>>> Stashed changes
 	
 	# setup canvaslayer
 	var canvas = $"../CanvasLayer"
@@ -110,6 +117,10 @@ func _throw(dt: float, release: bool) -> void:
 			# move camera
 			var cam_pos = global_position + (throw_pos - global_position).limit_length(max_cam_distance)
 			camera.global_position = lerp(camera.global_position, cam_pos, dt/2)
+			
+			if not slingshot_pulled:
+				slingshot_pulled = true
+				$slingshot_pull.play()
 		else:
 			trajectoryline._refresh()
 			throwing_power = 0
@@ -118,6 +129,9 @@ func _throw(dt: float, release: bool) -> void:
 			#reset camera
 			$Camera2D.position = Vector2.ZERO
 			
+			slingshot_pulled = false
+			$slingshot_pull.stop()
+			
 	else: #releaase: shoot
 		var throw_pos := get_global_mouse_position()
 		var origin := global_position + Vector2(0, -20)
@@ -125,6 +139,7 @@ func _throw(dt: float, release: bool) -> void:
 			origin = global_position + Vector2(-0, -20)
 			
 		trajectoryline.throw(origin, throw_pos, gravity, max_throwing_time, throwing_power, slingshot_damage)
+		$slingshot_shot.play()
 		
 func _crouch(dt) -> float:
 	if not crouch:

@@ -1,103 +1,114 @@
 [gd_scene format=3 uid="uid://bllohkmqfdai"]
 
-[ext_resource type="Script" uid="uid://bojpeolm0qqm" path="res://LevelStuff/Interactables.gd" id="1_uxpoo"]
-[ext_resource type="Texture2D" uid="uid://bsowdul1d8j6n" path="res://LevelStuff/lpc-doors-animated-1.png" id="2_pm7w2"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Foreground.png" id="1_o6c08"]
+[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="2_tcg14"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Base.png" id="3_xln6y"]
+[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area2.png" id="4_kksn2"]
+[ext_resource type="PackedScene" uid="uid://bxv0nkhmethla" path="res://LevelStuff/hallway_transition.tscn" id="5_4s3el"]
+[ext_resource type="Texture2D" path="res://LevelStuff/Area3Base.png" id="6_pnmwp"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="7_ojngt"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
-radius = 91.09336
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
-size = Vector2(20, 80)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ugy3"]
+size = Vector2(1993.421, 10)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rxkg"]
-atlas = ExtResource("2_pm7w2")
-region = Rect2(156, 15, 38, 66)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsrrp"]
+size = Vector2(1536, 94)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_epcdc"]
-atlas = ExtResource("2_pm7w2")
-region = Rect2(156, 279, 38, 66)
+[node name="MainLevel" type="Node2D" unique_id=831240484]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wwf3f"]
-atlas = ExtResource("2_pm7w2")
-region = Rect2(156, 15, 38, 66)
+[node name="Level" type="StaticBody2D" parent="." unique_id=1503879383]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q138s"]
-atlas = ExtResource("2_pm7w2")
-region = Rect2(156, 213, 38, 66)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o6c08"]
-atlas = ExtResource("2_pm7w2")
-region = Rect2(156, 279, 38, 66)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8rxkg")
-}],
-"loop": 1,
-"name": &"Idle_Closed",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_epcdc")
-}],
-"loop": 1,
-"name": &"Idle_Open",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wwf3f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q138s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o6c08")
-}],
-"loop": 0,
-"name": &"Opening",
-"speed": 5.0
-}]
-
-[node name="Door" type="Area2D" unique_id=1795832014 groups=["Interactables"]]
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("1_uxpoo")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=269851582]
-shape = SubResource("CircleShape2D_xrivr")
-debug_color = Color(0.9821835, 0, 0.36863893, 0.41960785)
-
-[node name="Control" type="Control" parent="." unique_id=1364721652]
+[node name="Parallax2D" type="Parallax2D" parent="Level" unique_id=525529848]
 visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+z_index = 10
+scroll_offset = Vector2(810.815, -235.385)
+repeat_size = Vector2(2110.68, 0)
 
-[node name="Label" type="Label" parent="Control" unique_id=965268647]
-layout_mode = 0
-offset_left = 12.0
-offset_top = -35.0
-offset_right = 52.0
-offset_bottom = -12.0
-text = "F"
+[node name="Sprite2D" type="Sprite2D" parent="Level/Parallax2D" unique_id=279305538]
+modulate = Color(1, 1, 1, 0.9098039)
+position = Vector2(0, -376)
+scale = Vector2(5, 5)
+texture = ExtResource("1_o6c08")
+centered = false
+offset = Vector2(0, -138.61)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=786379194]
-collision_layer = 2
-collision_mask = 4
+[node name="Sprite2D2" type="Sprite2D" parent="Level/Parallax2D" unique_id=1830499284]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1728.6626, 618.86237)
+scale = Vector2(-29.886183, 4.4660664)
+texture = ExtResource("2_tcg14")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=855134451]
-shape = SubResource("RectangleShape2D_xrivr")
+[node name="Sprite2D" type="Sprite2D" parent="Level" unique_id=1294609420]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(960, -304)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("2_tcg14")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1370486125]
-position = Vector2(22.5, 0.49999714)
-scale = Vector2(1.3421054, 1.2272727)
-sprite_frames = SubResource("SpriteFrames_xrivr")
-animation = &"Opening"
+[node name="Area1Base" type="Sprite2D" parent="Level" unique_id=655375754]
+position = Vector2(333, -80)
+scale = Vector2(2.0678596, 2.0678596)
+texture = ExtResource("3_xln6y")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[node name="Area2" type="Sprite2D" parent="Level" unique_id=1348584853]
+position = Vector2(1608, -160)
+scale = Vector2(2, 2)
+texture = ExtResource("4_kksn2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level" unique_id=1783357025]
+shape = SubResource("WorldBoundaryShape2D_xrivr")
+
+[node name="HallwayTransition" parent="Level" unique_id=204383538 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("5_4s3el")]
+position = Vector2(2072, -56)
+target_teleporter = NodePath("../../StaticBody2D2/HallwayTransition")
+
+[node name="Door" parent="Level" unique_id=1795832014 instance=ExtResource("7_ojngt")]
+position = Vector2(784, -72)
+scale = Vector2(1.52, 1.52)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1472868269]
+position = Vector2(0, -3912)
+scale = Vector2(1.52, 1.52)
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D2" unique_id=757174663]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(631.579, 689.4739)
+scale = Vector2(25.920002, 14.92)
+texture = ExtResource("2_tcg14")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1119684858]
+position = Vector2(594.7368, 1026.0526)
+shape = SubResource("RectangleShape2D_7ugy3")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=445968955]
+position = Vector2(678.9474, 1552.6316)
+texture = ExtResource("6_pnmwp")
+
+[node name="HallwayTransition" parent="StaticBody2D2" unique_id=264070325 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("5_4s3el")]
+position = Vector2(-263.1579, 984.2105)
+scale = Vector2(0.65789473, 0.65789473)
+target_teleporter = NodePath("../../Level/HallwayTransition")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+
+[node name="player_spawn" type="Node2D" parent="." unique_id=2082427049]
+position = Vector2(-396, -2417)
+
+[node name="monster_spawn1" type="Area2D" parent="." unique_id=870357421 groups=["monster_spawn_area"]]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn1" unique_id=1711118122]
+position = Vector2(-153, -111)
+shape = SubResource("RectangleShape2D_xsrrp")
+
+[node name="monster_spawn2" type="Area2D" parent="." unique_id=1161752464 groups=["monster_spawn_area"]]
+position = Vector2(933, -2344)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn2" unique_id=665901602]
+position = Vector2(556, -111)
+shape = SubResource("RectangleShape2D_xsrrp")

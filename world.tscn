@@ -54,3 +54,6 @@ position = Vector2(261, -24)
 
 [node name="Door" parent="props2" unique_id=1795832014 instance=ExtResource("6_gbfbk")]
 position = Vector2(561, -40)
+
+[node name="player_spawn" type="Node2D" parent="." unique_id=2036667838]
+position = Vector2(49, -45)

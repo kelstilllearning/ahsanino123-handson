@@ -22,19 +22,33 @@ func insert_player() -> void:
 	player_instance.owner = current_scene
 	player = player_instance
 	
+	# find spawn_pos
+	var spawn_pos : Vector2 = current_scene.find_child("player_spawn", true, false).global_position
+	player.global_position = spawn_pos
+	
 	# activate cam
 	var cam := player.find_child("Camera2D", true, false)
 	if cam:
 		cam.make_current()
 
 func insert_monster() -> void:
-	var monster_instance: Node = monster_scene.instantiate()
-	current_scene.add_child(monster_instance)
-	monster_instance.owner = current_scene
-	monster = monster_instance
-	
-	var x_pos = randi_range(-2000, 2000)
-	monster.position = Vector2(x_pos, -100)
+	# insert for every spawn there is
+	for spawn_area in get_tree().get_nodes_in_group("monster_spawn_area"):
+		var monster_instance: Node = monster_scene.instantiate()
+		current_scene.add_child(monster_instance)
+		monster_instance.owner = current_scene
+		monster = monster_instance
+		
+		var spawn_shape : CollisionShape2D = spawn_area.find_child("*", true, false) as CollisionShape2D
+		var rect := spawn_shape.shape as RectangleShape2D
+		
+		var spawn_area_size : Vector2 = rect.size
+		var spawn_area_pos : Vector2 = spawn_shape.global_position - spawn_area_size / 2.0
+		var spawn_pos = Vector2(
+			randf_range(spawn_area_pos.x, spawn_area_pos.x + spawn_area_size.x),
+			randf_range(spawn_area_pos.y, spawn_area_pos.y + spawn_area_size.y)
+		)
+		monster.position = spawn_pos
 
 func clear() -> void:
 	if is_instance_valid(current_scene):
