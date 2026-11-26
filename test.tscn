@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bjtc53d0pt0t1"]
+
+[ext_resource type="PackedScene" uid="uid://b1wl4b5rkgaxc" path="res://character_body_2d.tscn" id="1_37kl0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8uh7m"]
+
+[node name="World" type="Node2D" unique_id=1626503735]
+
+[node name="environement" type="StaticBody2D" parent="." unique_id=2145274880]
+collision_layer = 3
+
+[node name="ColorRect2" type="ColorRect" parent="environement" unique_id=1126860224]
+offset_left = -1000.0
+offset_top = -464.0
+offset_right = 1000.0
+offset_bottom = 40.0
+offset_transform_position = Vector2(-1000, 0)
+mouse_filter = 2
+color = Color(0.30954316, 0.32140675, 0.3544199, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="environement" unique_id=2070016014]
+shape = SubResource("WorldBoundaryShape2D_8uh7m")
+
+[node name="ColorRect" type="ColorRect" parent="environement/CollisionShape2D" unique_id=906196423]
+offset_left = -1000.0
+offset_right = 1000.0
+offset_bottom = 40.0
+offset_transform_position = Vector2(-1000, 0)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="player" parent="." unique_id=1140781524 instance=ExtResource("1_37kl0")]

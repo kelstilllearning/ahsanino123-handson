@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://bmjb60xfjod8f"]
+
+[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="1_w3snd"]
+[ext_resource type="PackedScene" uid="uid://bfy7paae26uu3" path="res://slingshot.tscn" id="2_kx2s4"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="3_8ws1j"]
+[ext_resource type="PackedScene" uid="uid://7ngkchjw34e4" path="res://LevelStuff/blockade.tscn" id="5_b5yu0"]
+[ext_resource type="Texture2D" uid="uid://biq1bfb8lu3rr" path="res://LevelStuff/pixel_door.png" id="6_8ws1j"]
+[ext_resource type="Script" uid="uid://d33lu2af72f1r" path="res://hallway_transition.gd" id="6_vfacy"]
+[ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="7_vfacy"]
+[ext_resource type="Script" uid="uid://c4ab8bi85dagf" path="res://ritual_circle.gd" id="8_k8edd"]
+[ext_resource type="PackedScene" uid="uid://bixla5ijpj00r" path="res://RitualCandleStuff/CandleRitualPopup.tscn" id="9_jbk63"]
+[ext_resource type="Texture2D" uid="uid://b70k8r0lu1pvf" path="res://RitualCandleStuff/Soaked_Candle_Dropped.png" id="10_jbk63"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(70, 112)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbk63"]
+radius = 80.399
+
+[node name="Testlevel" type="Node2D" unique_id=1657881564]
+
+[node name="player" parent="." unique_id=231474794 instance=ExtResource("1_w3snd")]
+
+[node name="Slingshot" parent="player" unique_id=772629495 instance=ExtResource("2_kx2s4")]
+position = Vector2(1, 0)
+
+[node name="Environment" type="StaticBody2D" parent="." unique_id=715559983]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment" unique_id=970010277]
+shape = SubResource("WorldBoundaryShape2D_xrivr")
+
+[node name="Door" parent="." unique_id=1795832014 instance=ExtResource("3_8ws1j")]
+position = Vector2(408, -40)
+
+[node name="Blockade" parent="." unique_id=774514752 instance=ExtResource("5_b5yu0")]
+position = Vector2(-144, -64)
+
+[node name="Bottle" parent="." unique_id=1809200111 instance=ExtResource("7_vfacy")]
+position = Vector2(-56, -24)
+
+[node name="HallwayTransition" type="Area2D" parent="." unique_id=200641783 node_paths=PackedStringArray("target_teleporter")]
+position = Vector2(208, -56)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("6_vfacy")
+target_teleporter = NodePath("../HallwayTransition2")
+
+[node name="Sprite2D" type="Sprite2D" parent="HallwayTransition" unique_id=95915448]
+scale = Vector2(0.285, 0.285)
+texture = ExtResource("6_8ws1j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HallwayTransition" unique_id=1242613048]
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Control" type="Control" parent="HallwayTransition" unique_id=682893575]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="HallwayTransition/Control" unique_id=899828255]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HallwayTransition2" type="Area2D" parent="." unique_id=1209624598 node_paths=PackedStringArray("target_teleporter")]
+position = Vector2(569, -56)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("6_vfacy")
+target_teleporter = NodePath("../HallwayTransition")
+
+[node name="Sprite2D" type="Sprite2D" parent="HallwayTransition2" unique_id=511804505]
+scale = Vector2(0.285, 0.285)
+texture = ExtResource("6_8ws1j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HallwayTransition2" unique_id=52895251]
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Control" type="Control" parent="HallwayTransition2" unique_id=1956120929]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RitualCircle" type="Area2D" parent="." unique_id=424131099]
+position = Vector2(744, -64)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("8_k8edd")
+minigame_scene = ExtResource("9_jbk63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RitualCircle" unique_id=1857081776]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_jbk63")
+
+[node name="Sprite2D" type="Sprite2D" parent="RitualCircle" unique_id=116014519]
+position = Vector2(0, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RitualCircle" unique_id=629318096]
+position = Vector2(24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Sprite2D3" type="Sprite2D" parent="RitualCircle" unique_id=2008142139]
+position = Vector2(-24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Control" type="Control" parent="RitualCircle" unique_id=1997195100]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RitualCircle2" type="Area2D" parent="." unique_id=1798482943]
+position = Vector2(928, -64)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("8_k8edd")
+minigame_scene = ExtResource("9_jbk63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RitualCircle2" unique_id=1379781385]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_jbk63")
+
+[node name="Sprite2D" type="Sprite2D" parent="RitualCircle2" unique_id=816783542]
+position = Vector2(0, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RitualCircle2" unique_id=735766772]
+position = Vector2(24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Sprite2D3" type="Sprite2D" parent="RitualCircle2" unique_id=1307014916]
+position = Vector2(-24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Control" type="Control" parent="RitualCircle2" unique_id=907529231]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RitualCircle3" type="Area2D" parent="." unique_id=1990580327]
+position = Vector2(1112, -64)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("8_k8edd")
+minigame_scene = ExtResource("9_jbk63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RitualCircle3" unique_id=454065468]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_jbk63")
+
+[node name="Sprite2D" type="Sprite2D" parent="RitualCircle3" unique_id=666797836]
+position = Vector2(0, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RitualCircle3" unique_id=1844020605]
+position = Vector2(24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Sprite2D3" type="Sprite2D" parent="RitualCircle3" unique_id=953519838]
+position = Vector2(-24, 48)
+scale = Vector2(0.1881803, 0.1881803)
+texture = ExtResource("10_jbk63")
+
+[node name="Control" type="Control" parent="RitualCircle3" unique_id=1340569358]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[editable path="player"]
+[editable path="player/Slingshot"]

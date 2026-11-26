@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b7l5b3dl7n754"]
+
+[ext_resource type="PackedScene" uid="uid://bfy7paae26uu3" path="res://slingshot.tscn" id="1_g17af"]
+[ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="1_n32ng"]
+[ext_resource type="Script" uid="uid://b2tv71mrc8xn7" path="res://Lockpickingstuff/hit_prop.gd" id="3_g17af"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g17af"]
+radius = 64.74484
+
+[node name="SlingshotTestplace" type="Node2D" unique_id=8203928]
+
+[node name="Slingshot" parent="." unique_id=772629495 instance=ExtResource("1_g17af")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=302056898]
+
+[node name="HitProp" type="Area2D" parent="." unique_id=2130994557]
+position = Vector2(475, -251)
+scale = Vector2(0.64, 0.64)
+script = ExtResource("3_g17af")
+
+[node name="Sprite2D" type="Sprite2D" parent="HitProp" unique_id=2011833921]
+modulate = Color(9.62615e-07, 0.7588939, 0.041118152, 1)
+texture = ExtResource("1_n32ng")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitProp" unique_id=651747797]
+shape = SubResource("CircleShape2D_g17af")
+
+[connection signal="body_entered" from="HitProp" to="HitProp" method="_on_body_entered"]

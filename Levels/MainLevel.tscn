@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://c6i03sc7qwotv"]
+
+[ext_resource type="Texture2D" uid="uid://cb08mgf6ew406" path="res://Levels/mainlevelresources/Area1Base.png" id="1_ovnwc"]
+[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="2_dncm7"]
+[ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="2_j5hpt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dncm7"]
+load_path = "res://.godot/imported/Area1Foreground.png-0556711a56940cb0479c585fdfcf64a7.ctex"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
+
+[node name="MainLevel" type="Node2D" unique_id=831240484]
+
+[node name="Level" type="StaticBody2D" parent="." unique_id=1503879383]
+
+[node name="Sprite2D" type="Sprite2D" parent="Level" unique_id=410944348]
+z_index = 10
+position = Vector2(248, -200)
+scale = Vector2(2.068, 2.068)
+texture = SubResource("CompressedTexture2D_dncm7")
+region_rect = Rect2(0, 0, 701, 389)
+
+[node name="Area1Base" type="Sprite2D" parent="Level" unique_id=655375754]
+position = Vector2(333, -80)
+scale = Vector2(2.0678596, 2.0678596)
+texture = ExtResource("1_ovnwc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level" unique_id=1783357025]
+shape = SubResource("WorldBoundaryShape2D_xrivr")
+
+[node name="Door" parent="Level" unique_id=1795832014 instance=ExtResource("2_j5hpt")]
+position = Vector2(943.99994, -56)
+scale = Vector2(1.52, 1.52)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
+color = Color(0.29954746, 0.29954746, 0.29954743, 1)
+
+[node name="player" parent="." unique_id=231474794 instance=ExtResource("2_dncm7")]
+position = Vector2(-96, -128)
