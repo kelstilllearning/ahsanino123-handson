@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://ba5j4vdjjc7hh"]
+
+[ext_resource type="Script" uid="uid://cpmmgn48qiro8" path="res://scenes/prologues/prologue_2.gd" id="1_hpxiu"]
+[ext_resource type="Theme" uid="uid://0ll1c7xqx2q5" path="res://resources/menu_theme.tres" id="2_0jd7o"]
+
+[sub_resource type="Animation" id="Animation_lvvw7"]
+resource_name = "Prologue1"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 14.933333),
+"transitions": PackedFloat32Array(1, 8, 1.0000052),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sa81v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5c8v"]
+_data = {
+&"Prologue1": SubResource("Animation_lvvw7"),
+&"RESET": SubResource("Animation_sa81v")
+}
+
+[node name="Prologue2" type="Control" unique_id=220137084]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hpxiu")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1080295338]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="RichTextLabel" parent="." unique_id=1334516057]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -209.5
+offset_top = 63.0
+offset_right = 209.5
+offset_bottom = 144.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_0jd7o")
+theme_type_variation = &"RichTextLabelTitle"
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[shake] HEIRLOOM"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Label" type="Label" parent="." unique_id=949962255]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.5
+offset_top = -130.5
+offset_right = 453.5
+offset_bottom = 130.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_0jd7o")
+text = "I know….
+I know it full well, the consequences of it
+tampering with something beyond my understanding
+I have trained until my bone fractures
+until my muscle breaks
+until almost nothing could touch me anymore"
+horizontal_alignment = 1
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1181699965]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=884516800]
+libraries/ = SubResource("AnimationLibrary_b5c8v")
+autoplay = &"Prologue1"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

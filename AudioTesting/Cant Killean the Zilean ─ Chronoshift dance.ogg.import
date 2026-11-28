@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cg8gqff8bo5sp"
+path="res://.godot/imported/Cant Killean the Zilean ─ Chronoshift dance.ogg-657cb5bc94378563513f17c6e785c488.oggvorbisstr"
+
+[deps]
+
+source_file="res://AudioTesting/Cant Killean the Zilean ─ Chronoshift dance.ogg"
+dest_files=["res://.godot/imported/Cant Killean the Zilean ─ Chronoshift dance.ogg-657cb5bc94378563513f17c6e785c488.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

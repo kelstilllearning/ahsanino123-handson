@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b58ydgpyaidw2"
+path="res://.godot/imported/Chronoshift-slowed to perfection (loop).ogg-c0afa8e5885a442310fea4cb34cf8500.oggvorbisstr"
+
+[deps]
+
+source_file="res://AudioTesting/Chronoshift-slowed to perfection (loop).ogg"
+dest_files=["res://.godot/imported/Chronoshift-slowed to perfection (loop).ogg-c0afa8e5885a442310fea4cb34cf8500.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
