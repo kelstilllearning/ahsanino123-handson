@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bvjbp7qgul17k"]
+
+[ext_resource type="Texture2D" uid="uid://cmms8e6ybs762" path="res://Levels/mainlevelresources/elements2(2).png" id="1_uep05"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mo0jf"]
+size = Vector2(48, 48)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1688159287]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1644490338]
+shape = SubResource("RectangleShape2D_mo0jf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=675218974]
+texture = ExtResource("1_uep05")
+region_enabled = true
+region_rect = Rect2(81.99524, 62.978275, 50.03705, 50.026928)

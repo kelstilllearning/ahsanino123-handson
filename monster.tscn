@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cagwp36y5o4fv" path="res://sprite/monster_sprite/Walking.png" id="2_mrqeg"]
 [ext_resource type="AudioStream" uid="uid://b55pif1llb4c3" path="res://sound/monstersteploop.wav" id="4_vr0w3"]
 [ext_resource type="AudioStream" uid="uid://dekqp46ll6hls" path="res://sound/monsterscream ig bro.wav" id="5_6tndq"]
+[ext_resource type="Script" uid="uid://be40elr42s2w6" path="res://MonsterNoiseListener.gd" id="6_8ngjm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga5te"]
 size = Vector2(105.2, 75.399994)
@@ -115,5 +116,8 @@ volume_db = 4.0
 [node name="scream" type="AudioStreamPlayer2D" parent="." unique_id=1786516894]
 stream = ExtResource("5_6tndq")
 volume_db = 4.0
+
+[node name="NoiseListener" type="Node2D" parent="." unique_id=311291498]
+script = ExtResource("6_8ngjm")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

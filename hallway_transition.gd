@@ -2,10 +2,17 @@ extends Area2D
 
 signal interactshow(state: int)
 
+@export_group("Transition Target")
+## Assign a .tscn file here to load a completely new scene. Leave empty to teleport within the current scene.
+@export_file("*.tscn") var target_scene_path: String = ""
+## Used only when Target Scene Path is empty.
 @export var target_teleporter: Node2D
 @export var arrival_offset: Vector2 = Vector2(0, 30)
+
+@export_group("Fade Timing")
 @export var fade_duration: float = 0.5
 @export var unfreeze_offset: float = 0.25 # Seconds after teleport before controls unlock (0.0 to fade_duration)
+@export var allow_outline: bool = false
 
 @onready var prompt_ui: Control = find_child("Control", true, false)
 
@@ -13,7 +20,7 @@ var _is_transitioning: bool = false
 var _fade_alpha: float = 0.0
 var _fade_canvas: CanvasLayer
 var _fade_drawer: Control
-@export var allow_outline: bool = false
+
 func _ready() -> void:
 	interactshow.connect(_on_interact_show)
 	
@@ -83,15 +90,19 @@ func set_transitioning(busy: bool) -> void:
 					break
 
 func interact(player: Node2D) -> void:
-	if is_busy():
-		return
-	if not is_instance_valid(target_teleporter) or not is_instance_valid(player):
-		return
-	if target_teleporter.has_method("is_busy") and target_teleporter.is_busy():
+	if is_busy() or not is_instance_valid(player):
 		return
 		
+	var loading_new_scene := not target_scene_path.is_empty()
+	
+	if not loading_new_scene:
+		if not is_instance_valid(target_teleporter):
+			return
+		if target_teleporter.has_method("is_busy") and target_teleporter.is_busy():
+			return
+		
 	set_transitioning(true)
-	if target_teleporter.has_method("set_transitioning"):
+	if not loading_new_scene and target_teleporter.has_method("set_transitioning"):
 		target_teleporter.set_transitioning(true)
 		
 	var im = _find_interaction_manager(player)
@@ -103,7 +114,26 @@ func interact(player: Node2D) -> void:
 	fade_out.tween_method(_set_fade_alpha, 0.0, 1.0, fade_duration)
 	await fade_out.finished
 	
-	# 2. Teleport player while screen is pitch black
+	# 2A. Scene Change Branch: Move fade overlay to root so it survives scene reload
+	if loading_new_scene:
+		_fade_canvas.reparent(get_tree().root)
+		var tree := get_tree()
+		var err := tree.change_scene_to_file(target_scene_path)
+		if err != OK:
+			push_error("HallwayTeleporter failed to load scene: " + target_scene_path)
+			_fade_canvas.queue_free()
+			return
+			
+		# Wait one frame for the new scene to enter the tree, then fade back in
+		await tree.process_frame
+		var fade_in_scene := tree.create_tween()
+		fade_in_scene.tween_method(_set_fade_alpha, 1.0, 0.0, fade_duration)
+		await fade_in_scene.finished
+		if is_instance_valid(_fade_canvas):
+			_fade_canvas.queue_free()
+		return
+		
+	# 2B. Same-Scene Teleport Branch
 	if is_instance_valid(player) and is_instance_valid(target_teleporter):
 		player.global_position = target_teleporter.global_position + arrival_offset
 		
@@ -121,7 +151,7 @@ func interact(player: Node2D) -> void:
 		await fade_in.finished
 	
 	set_transitioning(false)
-	if target_teleporter.has_method("set_transitioning"):
+	if is_instance_valid(target_teleporter) and target_teleporter.has_method("set_transitioning"):
 		target_teleporter.set_transitioning(false)
 
 func _set_fade_alpha(value: float) -> void:

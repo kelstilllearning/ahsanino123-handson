@@ -1,20 +1,28 @@
 [gd_scene format=3 uid="uid://c6i03sc7qwotv"]
 
-[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Base.png" id="1_ovnwc"]
 [ext_resource type="PackedScene" uid="uid://bllohkmqfdai" path="res://LevelStuff/Door.tscn" id="2_j5hpt"]
-[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area1Foreground.png" id="3_0tv47"]
+[ext_resource type="Texture2D" uid="uid://d3kgk1ptca3dk" path="res://Levels/mainlevelresources/Area1Foreground.png" id="3_0tv47"]
+[ext_resource type="Texture2D" uid="uid://7bvugfbd84yy" path="res://Levels/mainlevelresources/Area1Base(1).png" id="3_7ugy3"]
+[ext_resource type="Texture2D" uid="uid://caa61eceisrkr" path="res://Levels/mainlevelresources/Area2Base.png" id="4_774x7"]
 [ext_resource type="Texture2D" uid="uid://bi8v8s1cvu83x" path="res://icon.svg" id="4_ok4l4"]
-[ext_resource type="Texture2D" path="res://Levels/mainlevelresources/Area2.png" id="6_pm182"]
+[ext_resource type="Texture2D" uid="uid://d1gr7lbaaypj4" path="res://Levels/mainlevelresources/Area2Foreground.png" id="5_wa8mu"]
 [ext_resource type="PackedScene" uid="uid://bxv0nkhmethla" path="res://LevelStuff/hallway_transition.tscn" id="6_vo7st"]
-[ext_resource type="Texture2D" path="res://LevelStuff/Area3Base.png" id="7_7ugy3"]
+[ext_resource type="Texture2D" uid="uid://bjh4dymqicdf6" path="res://LevelStuff/Area3Base.png" id="7_7ugy3"]
+[ext_resource type="PackedScene" uid="uid://c6g582bfxvggi" path="res://player.tscn" id="8_774x7"]
+[ext_resource type="PackedScene" uid="uid://dy374efnrhhqx" path="res://monster.tscn" id="10_wa8mu"]
+[ext_resource type="PackedScene" uid="uid://cuki6hxugd31o" path="res://Table.tscn" id="11_0gyb6"]
+[ext_resource type="PackedScene" uid="uid://d26drgsmtm5da" path="res://LevelStuff/bottle.tscn" id="12_vqjuy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xrivr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(122, 320)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ugy3"]
 size = Vector2(1993.421, 10)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsrrp"]
-size = Vector2(1536, 94)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(31.052643, 488.94748)
 
 [node name="MainLevel" type="Node2D" unique_id=831240484]
 
@@ -47,25 +55,53 @@ scale = Vector2(25.920002, 14.92)
 texture = ExtResource("4_ok4l4")
 
 [node name="Area1Base" type="Sprite2D" parent="Level" unique_id=655375754]
-position = Vector2(333, -80)
+position = Vector2(304, -112)
 scale = Vector2(2.0678596, 2.0678596)
-texture = ExtResource("1_ovnwc")
+texture = ExtResource("3_7ugy3")
 
 [node name="Area2" type="Sprite2D" parent="Level" unique_id=1348584853]
-position = Vector2(1608, -160)
+position = Vector2(1608, -161.00002)
+scale = Vector2(2.01, 2.01)
+texture = ExtResource("4_774x7")
+
+[node name="Area3" type="Sprite2D" parent="Level" unique_id=519027118]
+position = Vector2(1601, -174)
 scale = Vector2(2, 2)
-texture = ExtResource("6_pm182")
+texture = ExtResource("5_wa8mu")
+
+[node name="Area4" type="Sprite2D" parent="Level" unique_id=1683113845]
+position = Vector2(306, -174)
+scale = Vector2(-2, 2)
+texture = ExtResource("5_wa8mu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level" unique_id=1783357025]
 shape = SubResource("WorldBoundaryShape2D_xrivr")
 
 [node name="HallwayTransition" parent="Level" unique_id=204383538 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("6_vo7st")]
-position = Vector2(2072, -56)
+position = Vector2(1720, -56)
 target_teleporter = NodePath("../../StaticBody2D2/HallwayTransition")
 
+[node name="Sprite2D4" parent="Level/HallwayTransition" index="1" unique_id=696152770]
+visible = false
+
+[node name="Sprite2D3" parent="Level/HallwayTransition" index="2" unique_id=1236417339]
+visible = false
+
 [node name="Door" parent="Level" unique_id=1795832014 instance=ExtResource("2_j5hpt")]
-position = Vector2(784, -72)
-scale = Vector2(1.52, 1.52)
+position = Vector2(826, -66)
+scale = Vector2(1.8928182, 1.8928182)
+
+[node name="HallwayTransition2" parent="Level" unique_id=749480590 instance=ExtResource("6_vo7st")]
+position = Vector2(2261, -2421)
+target_scene_path = "uid://bqp6hkp4kyodq"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Level" unique_id=433629117]
+position = Vector2(-154, -150)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Level" unique_id=564634882]
+position = Vector2(2177, -150)
+shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1472868269]
 position = Vector2(0, -3912)
@@ -85,30 +121,107 @@ shape = SubResource("RectangleShape2D_7ugy3")
 position = Vector2(678.9474, 1552.6316)
 texture = ExtResource("7_7ugy3")
 
+[node name="Wall" type="CollisionShape2D" parent="StaticBody2D2" unique_id=420154098]
+position = Vector2(-408.28946, 789.8684)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Wall2" type="CollisionShape2D" parent="StaticBody2D2" unique_id=846737289]
+position = Vector2(1592.7632, 789.8684)
+shape = SubResource("RectangleShape2D_xrivr")
+
 [node name="HallwayTransition" parent="StaticBody2D2" unique_id=264070325 node_paths=PackedStringArray("target_teleporter") groups=["Interactables"] instance=ExtResource("6_vo7st")]
-position = Vector2(-263.1579, 984.2105)
+position = Vector2(-263.1579, 984.21045)
 scale = Vector2(0.65789473, 0.65789473)
+collision_layer = 4
 target_teleporter = NodePath("../../Level/HallwayTransition")
+
+[node name="Table" parent="StaticBody2D2" unique_id=363027852 instance=ExtResource("11_0gyb6")]
+position = Vector2(3.9473684, 998.02625)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle" parent="StaticBody2D2" unique_id=1112767523 instance=ExtResource("12_vqjuy")]
+position = Vector2(-117.76315, 1005.9209)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle2" parent="StaticBody2D2" unique_id=951565934 instance=ExtResource("12_vqjuy")]
+position = Vector2(-100.65789, 1005.9209)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle3" parent="StaticBody2D2" unique_id=1823645426 instance=ExtResource("12_vqjuy")]
+position = Vector2(-108.55263, 1005.9209)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Table2" parent="StaticBody2D2" unique_id=720831561 instance=ExtResource("11_0gyb6")]
+position = Vector2(311.1842, 1001.3157)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle4" parent="StaticBody2D2" unique_id=1703288983 instance=ExtResource("12_vqjuy")]
+position = Vector2(189.47368, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle5" parent="StaticBody2D2" unique_id=1846692595 instance=ExtResource("12_vqjuy")]
+position = Vector2(206.57895, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle6" parent="StaticBody2D2" unique_id=1077430944 instance=ExtResource("12_vqjuy")]
+position = Vector2(198.6842, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Table3" parent="StaticBody2D2" unique_id=1733029601 instance=ExtResource("11_0gyb6")]
+position = Vector2(592.1053, 1001.3157)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle7" parent="StaticBody2D2" unique_id=1483810872 instance=ExtResource("12_vqjuy")]
+position = Vector2(470.39474, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle8" parent="StaticBody2D2" unique_id=184112580 instance=ExtResource("12_vqjuy")]
+position = Vector2(487.5, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle9" parent="StaticBody2D2" unique_id=1247241042 instance=ExtResource("12_vqjuy")]
+position = Vector2(479.60526, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Table4" parent="StaticBody2D2" unique_id=1024149638 instance=ExtResource("11_0gyb6")]
+position = Vector2(902.6316, 1001.3157)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle10" parent="StaticBody2D2" unique_id=40652841 instance=ExtResource("12_vqjuy")]
+position = Vector2(780.921, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle11" parent="StaticBody2D2" unique_id=1103156238 instance=ExtResource("12_vqjuy")]
+position = Vector2(798.0263, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle12" parent="StaticBody2D2" unique_id=200321038 instance=ExtResource("12_vqjuy")]
+position = Vector2(790.1316, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Table5" parent="StaticBody2D2" unique_id=1225382633 instance=ExtResource("11_0gyb6")]
+position = Vector2(1222.3684, 1001.3157)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle13" parent="StaticBody2D2" unique_id=1089779848 instance=ExtResource("12_vqjuy")]
+position = Vector2(1100.6578, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle14" parent="StaticBody2D2" unique_id=417387326 instance=ExtResource("12_vqjuy")]
+position = Vector2(1117.7632, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
+
+[node name="Bottle15" parent="StaticBody2D2" unique_id=2007382449 instance=ExtResource("12_vqjuy")]
+position = Vector2(1109.8684, 1009.21045)
+scale = Vector2(0.65789473, 0.65789473)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1972941837]
 color = Color(0.29954746, 0.29954746, 0.29954743, 1)
 
-[node name="player_spawn" type="Node2D" parent="." unique_id=2082427049]
-position = Vector2(-396, -2417)
+[node name="player" parent="." unique_id=1823296694 instance=ExtResource("8_774x7")]
+position = Vector2(242, -93)
 
-[node name="monster_spawn1" type="Area2D" parent="." unique_id=870357421 groups=["monster_spawn_area"]]
-collision_layer = 0
-collision_mask = 0
+[node name="monster" parent="." unique_id=824934074 groups=["enemies"] instance=ExtResource("10_wa8mu")]
+position = Vector2(1298, -2566)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn1" unique_id=1711118122]
-position = Vector2(-153, -111)
-shape = SubResource("RectangleShape2D_xsrrp")
-
-[node name="monster_spawn2" type="Area2D" parent="." unique_id=1161752464 groups=["monster_spawn_area"]]
-position = Vector2(933, -2344)
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="monster_spawn2" unique_id=665901602]
-position = Vector2(556, -111)
-shape = SubResource("RectangleShape2D_xsrrp")
+[editable path="Level/HallwayTransition"]

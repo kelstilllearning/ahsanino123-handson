@@ -5,7 +5,7 @@ signal lockpick_finished(success: bool)
 
 # Inspector Configuration
 @export var target_sizes: Array[int] = [3, 1, 2]
-@export var step_interval: float = 2.0
+@export var step_interval: float = 1.2
 
 # Placeholder textures for sizes 4, 3, 2, 1
 @export var texture_size_4: Texture2D
@@ -18,13 +18,14 @@ signal lockpick_finished(success: bool)
 @export var blue_flame_texture: Texture2D
 @export var smoke_texture: Texture2D
 
-@onready var candles: Array[Control] = [$Candle1, $Candle2, $Candle3]
+@onready var candles: Array[Control] = [$Candle1, $Candle2,$Candle3]
 
 var current_candle_index: int = 0
 var current_size: int = 4
 var was_holding: bool = false
 var hold_timer: float = 0.0
 var is_resetting: bool = false
+var is_in_blue_window: bool = false
 var _base_bottom_y: float = 0.0
 
 var _candle_sizes: Array[int] = [4, 4, 4]
@@ -60,6 +61,7 @@ func _reset_all_candles() -> void:
 	was_holding = false
 	hold_timer = 0.0
 	is_resetting = false
+	is_in_blue_window = false
 	
 	for i in range(candles.size()):
 		_apply_candle_size(i, 4)
@@ -77,7 +79,7 @@ func _process(delta: float) -> void:
 		if not was_holding:
 			was_holding = true
 			hold_timer = 0.0
-			_set_flame_state(current_candle_index, "red")
+			_update_melting_flame(current_candle_index)
 			
 		hold_timer += delta
 		if hold_timer >= step_interval:
@@ -85,13 +87,24 @@ func _process(delta: float) -> void:
 			current_size -= 1
 			
 			if current_size < 1:
+				is_in_blue_window = false
 				_apply_candle_size(current_candle_index, 0)
 				_trigger_fail(current_candle_index)
 			else:
 				_apply_candle_size(current_candle_index, current_size)
+				_update_melting_flame(current_candle_index)
 	elif was_holding:
 		was_holding = false
 		_evaluate_release()
+
+func _update_melting_flame(index: int) -> void:
+	var target := target_sizes[index]
+	is_in_blue_window = (current_size == target)
+	
+	if is_in_blue_window:
+		_set_flame_state(index, "blue_tinge")
+	else:
+		_set_flame_state(index, "red")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
@@ -99,9 +112,8 @@ func _input(event: InputEvent) -> void:
 		lockpick_finished.emit(false)
 
 func _evaluate_release() -> void:
-	var expected_size: int = target_sizes[current_candle_index]
-	
-	if current_size == expected_size:
+	if is_in_blue_window:
+		is_in_blue_window = false
 		_set_flame_state(current_candle_index, "blue")
 		zone_hit.emit()
 		current_candle_index += 1
@@ -118,6 +130,7 @@ func _evaluate_release() -> void:
 
 func _trigger_fail(failed_index: int) -> void:
 	was_holding = false
+	is_in_blue_window = false
 	is_resetting = true
 	_set_flame_state(failed_index, "off")
 	_set_smoke_visible(failed_index, true)
@@ -161,9 +174,20 @@ func _set_flame_state(index: int, state: String) -> void:
 		else:
 			flame.visible = true
 			if flame is TextureRect:
-				var tex := blue_flame_texture if state == "blue" else red_flame_texture
-				if tex != null:
-					flame.texture = tex
+				if state == "blue":
+					flame.texture = blue_flame_texture if blue_flame_texture != null else red_flame_texture
+					flame.modulate = Color.WHITE
+				elif state == "blue_tinge":
+					if blue_flame_texture != null:
+						flame.texture = blue_flame_texture
+						flame.modulate = Color(1.15, 0.85, 1.0, 1.0)
+					elif red_flame_texture != null:
+						flame.texture = red_flame_texture
+						flame.modulate = Color(0.55, 0.65, 1.5, 1.0)
+				else:
+					if red_flame_texture != null:
+						flame.texture = red_flame_texture
+					flame.modulate = Color.WHITE
 	queue_redraw()
 
 func _set_smoke_visible(index: int, show_smoke: bool) -> void:
@@ -194,6 +218,8 @@ func _draw() -> void:
 			var top_center := Vector2(candle.position.x + candle.size.x * 0.5, candle.position.y - 14.0)
 			if _flame_states[i] == "red":
 				draw_circle(top_center, 10.0, Color.ORANGE_RED)
+			elif _flame_states[i] == "blue_tinge":
+				draw_circle(top_center, 11.0, Color(0.45, 0.65, 1.0))
 			elif _flame_states[i] == "blue":
 				draw_circle(top_center, 10.0, Color.DEEP_SKY_BLUE)
 				

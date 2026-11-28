@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d33lu2af72f1r" path="res://hallway_transition.gd" id="1_1d2bf"]
 [ext_resource type="Texture2D" uid="uid://biq1bfb8lu3rr" path="res://LevelStuff/pixel_door.png" id="2_rwlit"]
+[ext_resource type="Texture2D" uid="uid://bsh2jcbqjtyl7" path="res://LevelStuff/elements3(1).png" id="3_rwlit"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(70, 112)
@@ -12,8 +13,21 @@ collision_mask = 4
 script = ExtResource("1_1d2bf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=298496896]
+visible = false
 scale = Vector2(0.285, 0.285)
 texture = ExtResource("2_rwlit")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=696152770]
+position = Vector2(0, -54)
+texture = ExtResource("3_rwlit")
+region_enabled = true
+region_rect = Rect2(301.9952, 210.00066, 77.025055, 207.01308)
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1236417339]
+position = Vector2(0, -54)
+texture = ExtResource("3_rwlit")
+region_enabled = true
+region_rect = Rect2(152.0302, 196.92227, 114.9803, 221.08795)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=77157358]
 shape = SubResource("RectangleShape2D_xrivr")
@@ -22,12 +36,18 @@ shape = SubResource("RectangleShape2D_xrivr")
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 50.0
+offset_bottom = 50.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Control" unique_id=521742729]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.08
+anchor_top = -0.16
+anchor_right = -0.08
+anchor_bottom = -0.16
 offset_right = 40.0
 offset_bottom = 23.0
+text = "F"
 metadata/_edit_use_anchors_ = true

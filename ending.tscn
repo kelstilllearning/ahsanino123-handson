@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dy6t8o5eoyg2o"]
+
+[ext_resource type="Texture2D" uid="uid://biq1bfb8lu3rr" path="res://LevelStuff/pixel_door.png" id="1_fsb5k"]
+
+[node name="Control" type="Control" unique_id=600434446]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=22174939]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(46, 94)
+scale = Vector2(13.703598, 13.703598)
+texture = ExtResource("1_fsb5k")
+
+[node name="Label" type="Label" parent="." unique_id=590468576]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 181.0
+offset_right = 828.0
+offset_bottom = 490.0
+text = "It's so dark isn't it?
+To be ditched by your family
+Because the voices in your head
+To be alone in the hall of madness
+To be locked in the dry wall of apathy
+
+I’m just trying to save my family
+From those crawlers
+From the darkness of the cave
+
+Yet they themselves has already been entangled by it.
+"
+horizontal_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1058276998]
+position = Vector2(577, 328)

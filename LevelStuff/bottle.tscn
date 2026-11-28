@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd8r5pnrhhqdl" path="res://LevelStuff/Bottle.gd" id="1_bpi1m"]
 [ext_resource type="Texture2D" uid="uid://fgomwbjo5lwd" path="res://LevelStuff/Empty_Bottle.webp" id="2_bpi1m"]
+[ext_resource type="AudioStream" uid="uid://s20j801yb4pc" path="res://sound/glassbottlebreak.wav" id="3_s4hck"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
 size = Vector2(16, 48)
@@ -18,3 +19,7 @@ shape = SubResource("RectangleShape2D_xrivr")
 rotation = -0.7853982
 scale = Vector2(0.68826926, 0.68826926)
 texture = ExtResource("2_bpi1m")
+
+[node name="BreakSound" type="AudioStreamPlayer2D" parent="." unique_id=520766554]
+stream = ExtResource("3_s4hck")
+volume_db = 24.0

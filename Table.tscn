@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cuki6hxugd31o"]
+
+[ext_resource type="Texture2D" uid="uid://cmms8e6ybs762" path="res://Levels/mainlevelresources/elements2(2).png" id="1_2sdc1"]
+[ext_resource type="Script" uid="uid://cbg8i0v2ql2l1" path="res://HidingSpot.gd" id="1_muxx0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(89, 71)
+
+[node name="Table" type="Area2D" unique_id=363027852]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_muxx0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1787624783]
+texture = ExtResource("1_2sdc1")
+region_enabled = true
+region_rect = Rect2(526.0172, 0, 95.99817, 70.00314)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=328013820]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="RayBlocker" type="StaticBody2D" parent="." unique_id=1842544770]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RayBlocker" unique_id=2013769376]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_xrivr")

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bog2yon4q4rkv"]
+
+[ext_resource type="Script" uid="uid://byxng6bfd77u7" path="res://LevelStuff/hallway_exit.gd" id="1_aqojj"]
+[ext_resource type="Texture2D" uid="uid://biq1bfb8lu3rr" path="res://LevelStuff/pixel_door.png" id="2_ovsre"]
+[ext_resource type="Texture2D" uid="uid://bsh2jcbqjtyl7" path="res://LevelStuff/elements3(1).png" id="3_4biyb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(70, 112)
+
+[node name="HallwayTransition" type="Area2D" unique_id=204383538]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_aqojj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=298496896]
+visible = false
+scale = Vector2(0.285, 0.285)
+texture = ExtResource("2_ovsre")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=696152770]
+position = Vector2(0, -54)
+texture = ExtResource("3_4biyb")
+region_enabled = true
+region_rect = Rect2(301.9952, 210.00066, 77.025055, 207.01308)
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1236417339]
+position = Vector2(0, -54)
+texture = ExtResource("3_4biyb")
+region_enabled = true
+region_rect = Rect2(152.0302, 196.92227, 114.9803, 221.08795)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=77157358]
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Control" type="Control" parent="." unique_id=896125242]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 50.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Control" unique_id=521742729]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.38
+anchor_top = -0.22
+anchor_right = -0.38
+anchor_bottom = -0.22
+offset_right = 40.0
+offset_bottom = 23.0
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
